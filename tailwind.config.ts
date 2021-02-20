@@ -1,8 +1,8 @@
-const colors = require('tailwindcss/colors')
-const { screens, gridTemplateColumns } = require('tailwindcss/defaultTheme')
+import { defineConfig } from 'vite-plugin-windicss'
+import colors from 'tailwindcss/colors'
+import { screens, gridTemplateColumns } from 'tailwindcss/defaultTheme'
 
-module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+export default defineConfig({
   corePlugins: {
     container: false,
   },
@@ -33,6 +33,7 @@ module.exports = {
     },
     gridTemplateColumns: {
       ...gridTemplateColumns,
+      // Does not work for now https://github.com/windicss/windicss/issues/83
       list: 'repeat(auto-fit, minmax(16em, 1fr))',
     },
     screens: {
@@ -40,8 +41,5 @@ module.exports = {
       xs: '520px',
     },
   },
-  variants: {
-    ringWidth: ['hover', 'focus'],
-  },
   plugins: [],
-}
+})
