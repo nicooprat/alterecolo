@@ -4,6 +4,25 @@ import Fuse from 'fuse.js'
 
 import { sync } from '/src/composables/sync'
 
+type Category = {
+  name: string
+  slug: string
+  count: number
+}
+
+type Item = {
+  title: string
+  replaced: string
+  desc: string
+  id: number
+  link: URL
+  difficulty: number
+  slug: string
+  createdTime: string
+  cover: URL
+  categories: string[]
+}
+
 const state = reactive({
   isLoading: true,
   categories: [],
@@ -15,7 +34,7 @@ const state = reactive({
 
 // Data
 
-export const fetch = async () => {
+export const fetch = async (): Promise<void> => {
   const { data } = await axios.get('/.netlify/functions/airtable')
   state.categories = data.categories
   state.items = data.items
@@ -36,13 +55,15 @@ export const getItems = computed(() => {
   // Sort
 
   if (state.sort === 'createdTime') {
-    items = items.sort((a, b) =>
+    items = items.sort((a: Item, b: Item) =>
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? 1 : -1,
     )
   }
 
   if (state.sort === 'difficulty') {
-    items = items.sort((a, b) => (a.difficulty > b.difficulty ? 1 : -1))
+    items = items.sort((a: Item, b: Item) =>
+      a.difficulty > b.difficulty ? 1 : -1,
+    )
   }
 
   if (state.order === 'asc') {
