@@ -1,5 +1,5 @@
 <template>
-  <header class="text-primary-400 container mx-auto py-4">
+  <header class="text-primary-400 py-4">
     <h1 class="font-bold">
       <router-link :to="{ name: 'Home' }" class="block">
         <svg viewBox="0 0 60 70" width="60px" height="70px">
@@ -14,9 +14,9 @@
     </h1>
   </header>
 
-  <div class="container mx-auto">
+  <main>
     <router-view :categories="getCategories" :items="getItems" />
-  </div>
+  </main>
 </template>
 
 <script>
@@ -45,8 +45,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+</style>
 
-.container {
+<style scoped>
+main, header {
   @apply max-w-7xl px-4 mx-auto;
 }
 </style>

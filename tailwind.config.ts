@@ -3,9 +3,7 @@ import colors from 'tailwindcss/colors'
 import { screens, gridTemplateColumns } from 'tailwindcss/defaultTheme'
 
 export default defineConfig({
-  corePlugins: {
-    container: false,
-  },
+  corePlugins: [],
   theme: {
     extend: {},
     colors: {
