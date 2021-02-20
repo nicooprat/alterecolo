@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 span {
   display: grid;
   grid-template-areas: "content";

@@ -1,5 +1,5 @@
 <template>
-  <nav class="grid gap-8" style="grid-template-columns: repeat(auto-fit, minmax(16em, 1fr))">
+  <nav class="grid gap-8">
     <template v-if="isLoading">
       <span
         v-for="item in Array.from(Array(12))"
@@ -37,3 +37,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+nav {
+  grid-template-columns: repeat(auto-fit, minmax(16em, 1fr));
+}
+</style>
