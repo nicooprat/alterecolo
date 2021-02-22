@@ -2,6 +2,7 @@ import { computed, reactive, watchEffect } from 'vue'
 import axios from 'axios'
 import Fuse from 'fuse.js'
 
+import router from '/src/router'
 import { sync } from '/src/composables/sync'
 
 type Category = {
@@ -20,7 +21,7 @@ type Item = {
   slug: string
   createdTime: string
   cover: URL
-  categories: string[]
+  categories: Category[]
 }
 
 const state = reactive({
@@ -43,8 +44,28 @@ export const fetch = async (): Promise<void> => {
 
 export const getCategories = computed(() => state.categories)
 
+export const getTotal = computed(() => state.items.length)
+
 export const getItems = computed(() => {
-  let items = state.items
+  let items: Item[] = state.items
+
+  // If not loaded yet, or empty
+
+  if (!items.length) {
+    return items
+  }
+
+  // Category
+
+  const currentRoute = router.currentRoute.value
+
+  if (currentRoute?.params.category) {
+    items = items.filter((item) => {
+      return item.categories.some(
+        (c) => c.slug === currentRoute.params.category,
+      )
+    })
+  }
 
   // Search
 

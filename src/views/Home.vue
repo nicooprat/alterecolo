@@ -7,7 +7,7 @@
       </nav>
       <Score class="ml-auto" />
     </header>
-    <Navigation :isLoading="isLoading" :categories="categories" />
+    <Navigation :isLoading="isLoading" :categories="categories" :total="getTotal" />
     <List :isLoading="isLoading" :items="items" />
   </div>
 </template>
@@ -18,7 +18,7 @@ import Navigation from "/src/components/Navigation.vue";
 import Search from "/src/components/Search.vue";
 import Score from "/src/components/Score.vue";
 import Sort from "/src/components/Sort.vue";
-import { isLoading, getSearch, getSort, getOrder } from "/src/composables/data";
+import { isLoading, getSearch, getSort, getOrder, getTotal } from "/src/composables/data";
 
 export default {
   components: {
@@ -43,7 +43,8 @@ export default {
       isLoading,
       getSearch,
       getSort,
-      getOrder
+      getOrder,
+      getTotal
     };
   }
 };

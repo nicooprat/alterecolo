@@ -79,7 +79,7 @@
           class="flex items-center py-2 px-3 ml-auto rounded-md focus:outline-none"
           :class="{
             'bg-primary-400 text-white hover:bg-primary-500': !checked,
-            'bg-neutral-200 text-neutral-600 hover:bg-neutral-300': checked
+            'bg-none text-neutral-500 hover:bg-neutral-300': checked
           }"
           v-on:click.prevent="check"
           type="button"

@@ -8,30 +8,70 @@
       />
     </template>
     <router-link
-      v-else-if="categories.length"
-      v-for="category in categories"
+      v-else-if="getLinks"
+      v-for="category in getLinks"
       :key="category.slug"
-      :to="{ name: 'Category', params: { category: category.slug } }"
-      class="text-primary-400 py-2 px-3 flex rounded-md hover:text-white hover:bg-primary-400 focus:text-white focus:bg-primary-400 focus:outline-none"
+      :to="category.link"
+      v-slot="{ href, isExactActive, navigate }"
+      custom
     >
-      <strong>{{ category.name }}</strong>
-      <sup class="flex items-center ml-1 text-xs font-bold opacity-80">{{
-        category.count
-      }}</sup>
+      <a
+        :href="href"
+        class="py-2 px-3 flex rounded-md"
+        :class="{
+          'text-white bg-primary-400': isExactActive,
+          'text-primary-400 hover:(text-white bg-primary-400) focus:(text-white bg-primary-400 outline-none)': !isExactActive
+        }"
+        @click="navigate">
+        <strong>{{ category.name }}</strong>
+        <sup class="flex items-center ml-1 text-xs font-bold opacity-80">
+          {{ category.count }}
+        </sup>
+      </a>
     </router-link>
   </nav>
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
   props: {
     categories: {
       type: Array,
       required: true
     },
+    total: {
+      type: Number,
+      required: true
+    },
     isLoading: {
       type: Boolean,
       default: false
+    }
+  },
+  setup(props) {
+    return {
+      getLinks: computed(() => {
+        const all = [{
+          name: 'Toutes',
+          slug: 'all',
+          count: props.total,
+          link: {
+            name: 'Home',
+          }
+        }]
+        const ones = props.categories.map((category) => {
+          return {
+            ...category,
+            link: {
+              name: 'Category',
+              params: { category: category.slug }
+            }
+          }
+        })
+        return all.concat(ones)
+      })
     }
   }
 };
