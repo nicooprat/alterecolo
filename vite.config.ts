@@ -5,7 +5,7 @@ import WindiCSS from 'vite-plugin-windicss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), WindiCSS()],
+  plugins: [vue(), WindiCSS({ transformCSS: 'pre' })],
   resolve: {
     alias: {
       '/src/': path.resolve(__dirname, './src'),

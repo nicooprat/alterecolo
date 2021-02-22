@@ -1,5 +1,5 @@
 <template>
-  <nav class="grid gap-8">
+  <nav class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     <template v-if="isLoading">
       <span
         v-for="item in Array.from(Array(12))"
@@ -37,27 +37,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-nav {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-@media screen and (min-width: 640px) {
-  nav {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media screen and (min-width: 768px) {
-  nav {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  nav {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-</style>
