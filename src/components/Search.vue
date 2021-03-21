@@ -15,7 +15,6 @@ export default {
   props: {
     search: {
       type: String,
-      required: true
     }
   }
 };

@@ -2,7 +2,7 @@
   <nav class="flex items-center flex-wrap -mx-3 leading-tight">
     <template v-if="isLoading">
       <span
-        v-for="item in Array.from(Array(6))"
+        v-for="item in 6"
         :key="item"
         class="rounded-full bg-neutral-200 w-28 h-4 m-3"
       />

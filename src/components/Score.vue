@@ -21,16 +21,6 @@ import { getScore } from "/src/composables/score";
 import { watch, ref } from "vue";
 
 export default {
-  props: {
-    item: {
-      type: Object,
-      required: true
-    },
-    isLoading: {
-      type: Boolean,
-      default: false
-    }
-  },
   setup() {
     let transitionName = ref("up");
 
@@ -58,7 +48,10 @@ span {
 strong {
   grid-area: content;
 }
+</style>
 
+<style>
+/* Must not be scoped due to WindiCSS bug appending vue component ID within keyframes */
 .up-enter-to {
   animation: fromBottom 300ms 1 both;
 }
@@ -76,10 +69,6 @@ strong {
 }
 
 @keyframes toBottom {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
   to {
     transform: translateY(150%);
     opacity: 0;
@@ -91,17 +80,9 @@ strong {
     transform: translateY(150%);
     opacity: 0;
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 @keyframes toTop {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
   to {
     transform: translateY(-150%);
     opacity: 0;
@@ -112,10 +93,6 @@ strong {
   from {
     transform: translateY(-150%);
     opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
   }
 }
 </style>

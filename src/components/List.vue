@@ -2,7 +2,7 @@
   <nav class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     <template v-if="isLoading">
       <span
-        v-for="item in Array.from(Array(12))"
+        v-for="item in 12"
         :key="item"
         class="h-48 bg-neutral-200 rounded-xl"
       />
