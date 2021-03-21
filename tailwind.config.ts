@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite-plugin-windicss'
-import colors from 'tailwindcss/colors'
+import colors from 'windicss/colors'
 import { screens, gridTemplateColumns } from 'tailwindcss/defaultTheme'
+import typography from 'windicss/plugin/typography'
 
 export default defineConfig({
   corePlugins: [],
@@ -39,5 +40,5 @@ export default defineConfig({
       xs: '520px',
     },
   },
-  plugins: [],
+  plugins: [typography],
 })

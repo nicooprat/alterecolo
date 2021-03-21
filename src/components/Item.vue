@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="{ name: 'Details', params: { slug: item.slug, id: item.id } }"
+    :to="getDetailsRoute"
     :class="{
       '': checked,
       'shadow-md': !checked
@@ -100,6 +100,7 @@
 <script>
 import { computed } from "vue";
 import { toggleId, isChecked } from "/src/composables/score";
+import router from "/src/router";
 
 export default {
   props: {
@@ -113,7 +114,12 @@ export default {
     }
   },
   setup(props) {
+    const getDetailsRoute = computed(() => {
+      return { name: `${router.currentRoute.value.matched[0].name}Details`, params: { slug: props.item.slug, id: props.item.id } }
+    })
+
     return {
+      getDetailsRoute,
       checked: computed(() => isChecked(props.item.id)),
       check: () => toggleId(props.item.id)
     };

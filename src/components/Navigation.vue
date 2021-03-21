@@ -12,15 +12,15 @@
       v-for="category in getLinks"
       :key="category.slug"
       :to="category.link"
-      v-slot="{ href, isExactActive, navigate }"
+      v-slot="{ href, isActive, navigate }"
       custom
     >
       <a
         :href="href"
         class="py-2 px-3 flex rounded-md"
         :class="{
-          'text-white bg-primary-400': isExactActive,
-          'text-primary-400 hover:(text-white bg-primary-400) focus:(text-white bg-primary-400 outline-none)': !isExactActive
+          'text-white bg-primary-400': isActive,
+          'text-primary-400 hover:(text-white bg-primary-400) focus:(text-white bg-primary-400 outline-none)': !isActive
         }"
         @click="navigate">
         <strong>{{ category.name }}</strong>

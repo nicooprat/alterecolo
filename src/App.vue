@@ -39,6 +39,11 @@ export default {
 body {
   @apply bg-neutral-100;
 }
+
+body.scroll-lock {
+  @apply overflow-hidden;
+}
+
 #app {
   @apply font-sans text-neutral-600;
   text-rendering: optimizeLegibility;
