@@ -115,7 +115,14 @@ export default {
   },
   setup(props) {
     const getDetailsRoute = computed(() => {
-      return { name: `${router.currentRoute.value.matched[0].name}Details`, params: { slug: props.item.slug, id: props.item.id } }
+      return {
+        name: `${router.currentRoute.value.matched[0].name}Details`,
+        params: {
+          slug: props.item.slug,
+          id: props.item.id,
+        },
+        query: router.currentRoute.value.query,
+      }
     })
 
     return {

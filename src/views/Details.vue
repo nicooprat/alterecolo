@@ -126,7 +126,7 @@ export default defineComponent({
 
     return {
       item: computed(() => getItems.value.find((item) => item.id === props.id)),
-      close: () => router.push(router.currentRoute.value.matched[0]),
+      close: () => router.push({ ...router.currentRoute.value.matched[0], query: router.currentRoute.value.query }),
       checked: computed(() => isChecked(props.id)),
       check: () => toggleId(props.id),
     }
