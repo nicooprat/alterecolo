@@ -7,8 +7,11 @@ import WindiCSS from 'vite-plugin-windicss'
 export default defineConfig({
   plugins: [vue(), WindiCSS({ transformCSS: 'pre' })],
   resolve: {
-    alias: {
-      '/src/': path.resolve(__dirname, './src'),
-    },
+    alias: [
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src')
+      }
+    ]
   },
 })

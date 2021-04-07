@@ -1,4 +1,4 @@
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect } from 'vue'
 
 /**
  * @description Returns a reactive variable that will be sync in localStorage if available
@@ -8,28 +8,30 @@ import { ref, watchEffect } from "vue";
  * @param {function} options.getter - Transform value after retrieving from storage
  * @param {function} options.setter - Transform value before setting in storage
  */
-export const persist = ({ key, value, getter = a => a, setter = a => a }) => {
-  const persisted = ref(value);
+export const persist = ({
+  key,
+  value,
+  getter = (a) => a,
+  setter = (a) => a,
+}) => {
+  const persisted = ref(value)
 
   try {
-    const previous = JSON.parse(localStorage.getItem(key));
+    const previous = JSON.parse(localStorage.getItem(key))
     if (previous) {
-      persisted.value = getter(previous);
+      persisted.value = getter(previous)
     }
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
 
-  watchEffect(
-    () => {
-      try {
-        localStorage.setItem(key, JSON.stringify(setter(persisted.value)));
-      } catch (e) {
-        console.error(e);
-      }
-    },
-    { immediate: true }
-  );
+  watchEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify(setter(persisted.value)))
+    } catch (e) {
+      console.error(e)
+    }
+  })
 
-  return persisted;
-};
+  return persisted
+}

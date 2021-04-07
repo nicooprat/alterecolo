@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getScore } from "/src/composables/score";
+import { getScore } from "@/composables/score";
 import { watch, ref } from "vue";
 
 export default {

@@ -99,8 +99,8 @@
 
 <script>
 import { computed } from "vue";
-import { toggleId, isChecked } from "/src/composables/score";
-import router from "/src/router";
+import { toggleId, isChecked } from "@/composables/score";
+import router from "@/router";
 
 export default {
   props: {

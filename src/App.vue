@@ -4,7 +4,7 @@
 
 <script>
 import { onMounted } from "vue";
-import { fetch, getCategories, getItems } from "/src/composables/data";
+import { fetch, getCategories, getItems } from "@/composables/data";
 
 export default {
   setup() {

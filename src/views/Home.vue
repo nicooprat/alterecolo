@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import Navigation from "/src/components/Navigation.vue";
-import List from "/src/components/List.vue";
-import Search from "/src/components/Search.vue";
-import Score from "/src/components/Score.vue";
-import Sort from "/src/components/Sort.vue";
-import { isLoading, getSearch, getSort, getOrder, getTotal } from "/src/composables/data";
+import Navigation from "@/components/Navigation.vue";
+import List from "@/components/List.vue";
+import Search from "@/components/Search.vue";
+import Score from "@/components/Score.vue";
+import Sort from "@/components/Sort.vue";
+import { isLoading, getSearch, getSort, getOrder, getTotal } from "@/composables/data";
 
 export default {
   components: {

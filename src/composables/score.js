@@ -1,7 +1,7 @@
 import { computed } from "vue";
 
-import { persist } from "/src/composables/persist";
-import { getItems } from "/src/composables/data";
+import { persist } from "@/composables/persist";
+import { getItems } from "@/composables/data";
 
 const checkedIds = persist({
   key: "checkedIds",

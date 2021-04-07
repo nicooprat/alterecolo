@@ -2,8 +2,8 @@ import { computed, reactive, watchEffect } from 'vue'
 import axios from 'axios'
 import Fuse from 'fuse.js'
 
-import router from '/src/router'
-import { sync } from '/src/composables/sync'
+import router from '@/router'
+import { sync } from '@/composables/sync'
 
 type Category = {
   name: string

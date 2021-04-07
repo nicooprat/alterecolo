@@ -96,9 +96,9 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted } from "vue";
 
-import { getItems } from "/src/composables/data";
-import { toggleId, isChecked } from "/src/composables/score";
-import router from "/src/router";
+import { getItems } from "@/composables/data";
+import { toggleId, isChecked } from "@/composables/score";
+import router from "@/router";
 
 export default defineComponent({
   props: {

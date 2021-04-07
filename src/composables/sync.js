@@ -1,5 +1,5 @@
 import { ref, watch } from "vue";
-import router from "/src/router";
+import router from "@/router";
 
 export const sync = (key, value, defaultValue) => {
   const val = ref(value);

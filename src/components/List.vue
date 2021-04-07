@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Item from "/src/components/Item.vue";
+import Item from "@/components/Item.vue";
 
 export default {
   components: {
