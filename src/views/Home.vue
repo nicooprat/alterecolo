@@ -79,7 +79,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
 main,
 header {
   @apply max-w-7xl px-4 mx-auto;

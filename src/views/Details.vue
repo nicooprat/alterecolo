@@ -165,7 +165,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
 .content {
   box-shadow: 0px 5px 13px 0px rgba(0, 0, 0, 0.75);
 }

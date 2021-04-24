@@ -18,7 +18,7 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="postcss">
 body {
   @apply bg-neutral-100 font-sans text-neutral-600;
   text-rendering: optimizeLegibility;

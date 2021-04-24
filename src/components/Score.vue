@@ -41,7 +41,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
 span {
   display: grid;
   grid-template-areas: 'content';
