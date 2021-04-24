@@ -4,8 +4,13 @@
     class="fixed inset-0 py-12 overflow-auto cursor-pointer"
     @click.self="close"
   >
+    <div
+      class="overlay bg-neutral-900 opacity-75 fixed inset-0 -z-1 w-full h-full pointer-events-none"
+      aria-hidden
+    />
+
     <main
-      class="content mx-auto min-h-full bg-white rounded-xl flex flex-col cursor-auto overflow-hidden w-full max-w-65ch flex-shrink-0 relative"
+      class="content mx-auto min-h-full bg-white rounded-xl flex flex-col cursor-auto overflow-hidden w-full max-w-[65ch] flex-shrink-0 relative"
     >
       <button
         class="absolute top-0 right-0 m-6 bg-white rounded-full border-2 border-white hover:text-primary-500 focus:text-primary-500 focus:outline-none"
@@ -112,11 +117,6 @@
         <div id="commento"></div>
       </footer>
     </main>
-
-    <div
-      class="overlay bg-neutral-900 opacity-75 fixed inset-0 -z-1 w-full h-full pointer-events-none"
-      aria-hidden
-    />
   </div>
 </template>
 
@@ -166,7 +166,11 @@ export default defineComponent({
 </script>
 
 <style scoped lang="postcss">
+/* https://shadows.brumm.af/ */
 .content {
-  box-shadow: 0px 5px 13px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    0 100px 80px rgba(0, 0, 0, 0.07);
 }
 </style>

@@ -20,7 +20,7 @@
         class="py-2 px-3 flex rounded-md"
         :class="{
           'text-white bg-primary-400': isActive,
-          'text-primary-400 hover:(text-white bg-primary-400) focus:(text-white bg-primary-400 outline-none)': !isActive,
+          'text-primary-400 hover:text-white hover:bg-primary-400 focus:text-white focus:bg-primary-400 focus:outline-none': !isActive,
         }"
         @click="navigate"
       >

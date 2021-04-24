@@ -82,7 +82,7 @@ export default defineComponent({
 <style scoped lang="postcss">
 main,
 header {
-  @apply max-w-7xl px-4 mx-auto;
+  @apply px-4 mx-auto;
 }
 
 .dialog-enter-active :deep() .overlay,
@@ -107,12 +107,12 @@ header {
 /* ease-in on enter */
 .dialog-enter-active :deep() .content {
   transition-delay: 100ms;
-  transition-timing-function: cubic-bezier(0.05, 0.78, 0.14, 0.97);
+  transition-timing-function: cubic-bezier(0, 0.78, 0.14, 1);
 }
 
 /* ease-out on leave */
 .dialog-leave-active :deep() .content {
-  transition-timing-function: cubic-bezier(0.89, 0.01, 1, 0.36);
+  transition-timing-function: cubic-bezier(1, 0, 1, 0.36);
 }
 
 .dialog-enter-from :deep() .content,

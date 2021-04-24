@@ -17,9 +17,6 @@ module.exports = {
       fontFamily: {
         sans: ['Roboto', ...defaultTheme.fontFamily.sans],
       },
-      gridTemplateColumns: {
-        list: 'repeat(auto-fit, minmax(16em, 1fr))',
-      },
       screens: {
         xs: '520px',
       },

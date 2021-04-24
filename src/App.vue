@@ -29,4 +29,8 @@ body {
 body.scroll-lock {
   @apply overflow-hidden;
 }
+
+#app {
+  @apply max-w-7xl mx-auto;
+}
 </style>
