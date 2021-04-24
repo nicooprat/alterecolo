@@ -29,8 +29,7 @@ const state = reactive({
   categories: [],
   items: [],
   search: sync('search'),
-  sort: sync('sort', 'createdTime', 'createdTime'),
-  order: sync('order', 'desc', 'desc'),
+  sort: sync('sort', 'recent', 'recent'),
 })
 
 // Data
@@ -75,21 +74,20 @@ export const getItems = computed(() => {
 
   // Sort
 
-  if (state.sort === 'createdTime') {
-    items = items.sort((a: Item, b: Item) =>
+  const sorts = {
+    recent: (a: Item, b: Item) =>
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? 1 : -1,
-    )
-  }
-
-  if (state.sort === 'difficulty') {
-    items = items.sort((a: Item, b: Item) =>
+    old: (a: Item, b: Item) =>
+      Date.parse(a.createdTime) < Date.parse(b.createdTime) ? -1 : 1,
+    easy: (a: Item, b: Item) =>
       a.difficulty > b.difficulty ? 1 : -1,
-    )
+    difficult: (a: Item, b: Item) =>
+      a.difficulty > b.difficulty ? -1 : 1,
   }
 
-  if (state.order === 'asc') {
-    items = items.reverse()
-  }
+  type sorts = 'recent' | 'old' | 'easy' | 'difficult';
+
+  items = items.sort(sorts[state.sort as sorts])
 
   return items
 })
@@ -118,17 +116,6 @@ export const getSort = computed({
     return state.sort
   },
   set(newSort) {
-    if (state.sort === newSort) {
-      if (state.order === 'desc') {
-        state.order = 'asc'
-      } else {
-        state.order = 'desc'
-      }
-    } else {
-      state.order = 'desc'
-      state.sort = newSort
-    }
+    state.sort = newSort
   },
 })
-
-export const getOrder = computed(() => state.order)

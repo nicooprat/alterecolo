@@ -13,7 +13,7 @@
       </router-link>
     </h1>
     <Search v-model:search="getSearch" class="ml-8" />
-    <Sort v-model:sort="getSort" v-model:order="getOrder" class="ml-8" />
+    <Sort v-model:sort="getSort" class="ml-8" />
     <Score class="ml-auto" />
   </header>
 
@@ -35,7 +35,7 @@ import List from "@/components/List.vue";
 import Search from "@/components/Search.vue";
 import Score from "@/components/Score.vue";
 import Sort from "@/components/Sort.vue";
-import { isLoading, getSearch, getSort, getOrder, getTotal } from "@/composables/data";
+import { isLoading, getSearch, getSort, getTotal } from "@/composables/data";
 
 export default {
   components: {
@@ -46,6 +46,10 @@ export default {
     Sort
   },
   props: {
+    category: {
+      type: String,
+      default: ''
+    },
     categories: {
       type: Array,
       required: true
@@ -60,7 +64,6 @@ export default {
       isLoading,
       getSearch,
       getSort,
-      getOrder,
       getTotal
     };
   }

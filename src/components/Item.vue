@@ -26,7 +26,7 @@
     <div class="p-4 flex-grow flex flex-col">
       <span class="mb-2">
         <small class="block text-neutral-600 font-bold opacity-60">
-          {{ item.replaced }} <span class="ml-1">⤵︎</span>
+          {{ item.replaced }}&nbsp;<span class="ml-1">⤵︎</span>
         </small>
         <strong class="block font-bold text-lg leading-tight">
           {{ item.title }}

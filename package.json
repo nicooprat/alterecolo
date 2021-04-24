@@ -9,6 +9,7 @@
     "start": "node_modules/netlify-cli/bin/run dev"
   },
   "dependencies": {
+    "@vueuse/core": "^4.7.0",
     "airtable": "^0.10.1",
     "axios": "^0.21.1",
     "fuse.js": "^6.4.6",
