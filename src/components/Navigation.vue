@@ -8,11 +8,11 @@
       />
     </template>
     <router-link
-      v-else-if="getLinks"
       v-for="category in getLinks"
+      v-else-if="getLinks"
       :key="category.slug"
-      :to="category.link"
       v-slot="{ href, isActive, navigate }"
+      :to="category.link"
       custom
     >
       <a
@@ -20,9 +20,10 @@
         class="py-2 px-3 flex rounded-md"
         :class="{
           'text-white bg-primary-400': isActive,
-          'text-primary-400 hover:(text-white bg-primary-400) focus:(text-white bg-primary-400 outline-none)': !isActive
+          'text-primary-400 hover:(text-white bg-primary-400) focus:(text-white bg-primary-400 outline-none)': !isActive,
         }"
-        @click="navigate">
+        @click="navigate"
+      >
         <strong>{{ category.name }}</strong>
         <sup class="flex items-center ml-1 text-xs font-bold opacity-80">
           {{ category.count }}
@@ -33,46 +34,48 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   props: {
     categories: {
       type: Array,
-      required: true
+      required: true,
     },
     total: {
       type: Number,
-      required: true
+      required: true,
     },
     isLoading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props) {
     return {
       getLinks: computed(() => {
-        const all = [{
-          name: 'Toutes',
-          slug: 'all',
-          count: props.total,
-          link: {
-            name: 'Home',
-          }
-        }]
+        const all = [
+          {
+            name: 'Toutes',
+            slug: 'all',
+            count: props.total,
+            link: {
+              name: 'Home',
+            },
+          },
+        ]
         const ones = props.categories.map((category) => {
           return {
             ...category,
             link: {
               name: 'Category',
-              params: { category: category.slug }
-            }
+              params: { category: category.slug },
+            },
           }
         })
         return all.concat(ones)
-      })
+      }),
     }
-  }
-};
+  },
+})
 </script>

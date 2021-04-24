@@ -1,5 +1,7 @@
 <template>
-  <nav class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  <nav
+    class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+  >
     <template v-if="isLoading">
       <span
         v-for="item in 12"
@@ -18,22 +20,24 @@
   </nav>
 </template>
 
-<script>
-import Item from "@/components/Item.vue";
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-export default {
+import Item from '@/components/Item.vue'
+
+export default defineComponent({
   components: {
-    Item
+    Item,
   },
   props: {
     items: {
       type: Array,
-      required: true
+      required: true,
     },
     isLoading: {
       type: Boolean,
-      default: false
-    }
-  }
-};
+      default: false,
+    },
+  },
+})
 </script>

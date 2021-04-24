@@ -22,6 +22,7 @@ export const persist = ({
       persisted.value = getter(previous)
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e)
   }
 
@@ -29,6 +30,7 @@ export const persist = ({
     try {
       localStorage.setItem(key, JSON.stringify(setter(persisted.value)))
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e)
     }
   })

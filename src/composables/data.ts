@@ -24,7 +24,15 @@ type Item = {
   categories: Category[]
 }
 
-const state = reactive({
+type Sorts = 'recent' | 'old' | 'easy' | 'difficult'
+
+const state: {
+  isLoading: boolean
+  categories: Category[]
+  items: Item[]
+  search: string
+  sort: Sorts
+} = reactive({
   isLoading: true,
   categories: [],
   items: [],
@@ -79,15 +87,11 @@ export const getItems = computed(() => {
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? 1 : -1,
     old: (a: Item, b: Item) =>
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? -1 : 1,
-    easy: (a: Item, b: Item) =>
-      a.difficulty > b.difficulty ? 1 : -1,
-    difficult: (a: Item, b: Item) =>
-      a.difficulty > b.difficulty ? -1 : 1,
+    easy: (a: Item, b: Item) => (a.difficulty > b.difficulty ? 1 : -1),
+    difficult: (a: Item, b: Item) => (a.difficulty > b.difficulty ? -1 : 1),
   }
 
-  type sorts = 'recent' | 'old' | 'easy' | 'difficult';
-
-  items = items.sort(sorts[state.sort as sorts])
+  items = items.sort(sorts[state.sort])
 
   return items
 })
@@ -106,7 +110,9 @@ watchEffect(() => fuse.setCollection(state.items))
 
 export const getSearch = computed({
   get: () => state.search,
-  set: (search) => (state.search = search),
+  set: (search) => {
+    state.search = search
+  },
 })
 
 // Sort
@@ -115,7 +121,7 @@ export const getSort = computed({
   get() {
     return state.sort
   },
-  set(newSort) {
+  set(newSort: Sorts) {
     state.sort = newSort
   },
 })

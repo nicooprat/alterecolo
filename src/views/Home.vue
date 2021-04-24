@@ -1,7 +1,10 @@
 <template>
   <header class="py-4 flex items-center">
     <h1 class="text-2xl">
-      <router-link :to="{ name: 'Home' }" class="flex items-center space-x-4 text-primary-400">
+      <router-link
+        :to="{ name: 'Home' }"
+        class="flex items-center space-x-4 text-primary-400"
+      >
         <svg viewBox="0 0 60 70" width="40" height="70">
           <path
             transform="translate(60,70) rotate(180)"
@@ -18,7 +21,11 @@
   </header>
 
   <main class="space-y-8">
-    <Navigation :isLoading="isLoading" :categories="categories" :total="getTotal" />
+    <Navigation
+      :isLoading="isLoading"
+      :categories="categories"
+      :total="getTotal"
+    />
     <List :isLoading="isLoading" :items="items" />
   </main>
 
@@ -29,49 +36,52 @@
   </router-view>
 </template>
 
-<script>
-import Navigation from "@/components/Navigation.vue";
-import List from "@/components/List.vue";
-import Search from "@/components/Search.vue";
-import Score from "@/components/Score.vue";
-import Sort from "@/components/Sort.vue";
-import { isLoading, getSearch, getSort, getTotal } from "@/composables/data";
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-export default {
+import Navigation from '@/components/Navigation.vue'
+import List from '@/components/List.vue'
+import Search from '@/components/Search.vue'
+import Score from '@/components/Score.vue'
+import Sort from '@/components/Sort.vue'
+import { isLoading, getSearch, getSort, getTotal } from '@/composables/data'
+
+export default defineComponent({
   components: {
     Navigation,
     List,
     Search,
     Score,
-    Sort
+    Sort,
   },
   props: {
     category: {
       type: String,
-      default: ''
+      default: '',
     },
     categories: {
       type: Array,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   setup() {
     return {
       isLoading,
       getSearch,
       getSort,
-      getTotal
-    };
-  }
-};
+      getTotal,
+    }
+  },
+})
 </script>
 
 <style scoped>
-main, header {
+main,
+header {
   @apply max-w-7xl px-4 mx-auto;
 }
 
@@ -97,12 +107,12 @@ main, header {
 /* ease-in on enter */
 .dialog-enter-active :deep() .content {
   transition-delay: 100ms;
-  transition-timing-function: cubic-bezier(.05,.78,.14,.97);
+  transition-timing-function: cubic-bezier(0.05, 0.78, 0.14, 0.97);
 }
 
 /* ease-out on leave */
 .dialog-leave-active :deep() .content {
-  transition-timing-function: cubic-bezier(.89,.01,1,.36);
+  transition-timing-function: cubic-bezier(0.89, 0.01, 1, 0.36);
 }
 
 .dialog-enter-from :deep() .content,

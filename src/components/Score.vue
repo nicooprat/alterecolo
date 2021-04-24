@@ -16,33 +16,35 @@
   </div>
 </template>
 
-<script>
-import { getScore } from "@/composables/score";
-import { watch, ref } from "vue";
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-export default {
+import { getScore } from '@/composables/score'
+import { watch, ref } from 'vue'
+
+export default defineComponent({
   setup() {
-    let transitionName = ref("up");
+    let transitionName = ref('up')
 
     watch(
       () => getScore.value,
       (newScore, oldScore) => {
-        transitionName.value = newScore > oldScore ? "up" : "down";
-      }
-    );
+        transitionName.value = newScore > oldScore ? 'up' : 'down'
+      },
+    )
 
     return {
       getScore,
-      transitionName
-    };
-  }
-};
+      transitionName,
+    }
+  },
+})
 </script>
 
 <style scoped>
 span {
   display: grid;
-  grid-template-areas: "content";
+  grid-template-areas: 'content';
 }
 
 strong {

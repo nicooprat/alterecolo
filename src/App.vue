@@ -2,20 +2,20 @@
   <router-view :categories="getCategories" :items="getItems" />
 </template>
 
-<script>
-import { onMounted } from "vue";
-import { fetch, getCategories, getItems } from "@/composables/data";
+<script lang="ts">
+import { onMounted, defineComponent } from 'vue'
+import { fetch, getCategories, getItems } from '@/composables/data'
 
-export default {
+export default defineComponent({
   setup() {
-    onMounted(fetch);
+    onMounted(fetch)
 
     return {
       getCategories,
-      getItems
-    };
-  }
-};
+      getItems,
+    }
+  },
+})
 </script>
 
 <style>

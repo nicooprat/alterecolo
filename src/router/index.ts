@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteLocation } from 'vue-router'
+
 import Home from '@/views/Home.vue'
 import Details from '@/views/Details.vue'
 
