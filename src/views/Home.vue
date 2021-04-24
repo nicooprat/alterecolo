@@ -16,16 +16,18 @@
       </router-link>
     </h1>
     <Search v-model:search="getSearch" class="ml-8" />
-    <Sort v-model:sort="getSort" class="ml-8" />
+    <Navigation
+      class="ml-4"
+      :isLoading="isLoading"
+      :categories="categories"
+      :category="category"
+      :total="getTotal"
+    />
+    <Sort v-model:sort="getSort" class="ml-4" />
     <Score class="ml-auto" />
   </header>
 
   <main class="space-y-8">
-    <Navigation
-      :isLoading="isLoading"
-      :categories="categories"
-      :total="getTotal"
-    />
     <List :isLoading="isLoading" :items="items" />
   </main>
 

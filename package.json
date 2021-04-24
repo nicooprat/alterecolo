@@ -9,11 +9,12 @@
     "start": "node_modules/netlify-cli/bin/run dev"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.0.0",
     "@vueuse/core": "^4.7.0",
     "airtable": "^0.10.1",
     "axios": "^0.21.1",
     "fuse.js": "^6.4.6",
-    "vue-router": "^4.0.5"
+    "vue-router": "^4.0.6"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.4.0",
