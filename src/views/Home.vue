@@ -23,7 +23,7 @@
       :category="category"
       :total="getTotal"
     />
-    <Sort v-model:sort="getSort" class="ml-4" />
+    <Sort v-model:sort="getSort" class="ml-1" />
     <Score class="ml-auto" />
   </header>
 

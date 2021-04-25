@@ -14,7 +14,7 @@
     </MenuButton>
 
     <MenuItems
-      class="flex flex-col absolute z-10 left-0 min-w-full p-1 mt-2 bg-white space-y-1 rounded-md shadow-lg focus:outline-none"
+      class="flex flex-col absolute z-10 left-0 min-w-[20ch] w-full p-1 mt-2 bg-white space-y-1 rounded-md shadow-lg focus:outline-none"
     >
       <MenuItem v-for="link in allLinks" :key="link.slug" v-slot="{ active }">
         <router-link
@@ -24,7 +24,7 @@
         >
           <a
             :href="href"
-            class="flex rounded px-2 py-1 whitespace-nowrap hover:bg-neutral-200 focus:bg-neutral-200"
+            class="flex rounded px-2 py-1 whitespace-nowrap"
             :class="{
               'bg-primary-500 text-white': active && isActive,
               'bg-primary-400 text-white': !active && isActive,
@@ -45,6 +45,7 @@
 
 <script>
 import { computed, defineComponent } from 'vue'
+import { useRoute } from 'vue-router'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 export default defineComponent({
@@ -73,6 +74,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const route = useRoute()
     const allLinks = computed(() => {
       const all = [
         {
@@ -81,6 +83,7 @@ export default defineComponent({
           count: props.total,
           link: {
             name: 'Home',
+            query: route.query,
           },
         },
       ]
@@ -90,6 +93,7 @@ export default defineComponent({
           link: {
             name: 'Category',
             params: { category: category.slug },
+            query: route.query,
           },
         }
       })
