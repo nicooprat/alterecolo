@@ -1,11 +1,7 @@
 <template>
   <router-link
     :to="getDetailsRoute"
-    :class="{
-      '': checked,
-      'shadow-md': !checked,
-    }"
-    class="flex flex-col bg-white xs:rounded-xl -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus:ring focus:outline-none"
+    class="flex flex-col bg-white shadow-md xs:rounded-lg -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus:ring focus:outline-none"
   >
     <span
       style="padding-bottom: 56.25%"

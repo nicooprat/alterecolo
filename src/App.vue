@@ -26,10 +26,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body.scroll-lock {
-  @apply overflow-hidden;
-}
-
 #app {
   @apply max-w-7xl mx-auto;
 }

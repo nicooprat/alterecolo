@@ -1,5 +1,5 @@
 <template>
-  <header class="py-4 flex items-center">
+  <header class="py-4 px-4 mx-auto flex items-center">
     <h1 class="text-2xl">
       <router-link
         :to="{ name: 'Home' }"
@@ -27,7 +27,7 @@
     <Score class="ml-auto" />
   </header>
 
-  <main class="space-y-8">
+  <main class="px-4 mx-auto space-y-8">
     <List :isLoading="isLoading" :items="items" />
   </main>
 
@@ -76,46 +76,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped lang="postcss">
-main,
-header {
-  @apply px-4 mx-auto;
-}
-
-.dialog-enter-active :deep() .overlay,
-.dialog-leave-active :deep() .overlay {
-  transition: opacity 500ms;
-}
-
-.dialog-leave-active :deep() .overlay {
-  transition-delay: 250ms;
-}
-
-.dialog-enter-from :deep() .overlay,
-.dialog-leave-to :deep() .overlay {
-  opacity: 0;
-}
-
-.dialog-enter-active :deep() .content,
-.dialog-leave-active :deep() .content {
-  transition: transform 350ms, opacity 350ms;
-}
-
-/* ease-in on enter */
-.dialog-enter-active :deep() .content {
-  transition-delay: 100ms;
-  transition-timing-function: cubic-bezier(0, 0.78, 0.14, 1);
-}
-
-/* ease-out on leave */
-.dialog-leave-active :deep() .content {
-  transition-timing-function: cubic-bezier(1, 0, 1, 0.36);
-}
-
-.dialog-enter-from :deep() .content,
-.dialog-leave-to :deep() .content {
-  transform: translateY(100%);
-  opacity: 0;
-}
-</style>
