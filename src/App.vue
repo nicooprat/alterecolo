@@ -19,14 +19,20 @@ export default defineComponent({
 </script>
 
 <style lang="postcss">
+html {
+  height: -webkit-fill-available;
+}
+
 body {
-  @apply bg-neutral-100 font-sans text-neutral-600;
+  @apply bg-neutral-100 font-sans text-neutral-600 flex flex-col;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
-  @apply max-w-7xl mx-auto;
+  @apply w-full max-w-7xl mx-auto flex flex-grow flex-col;
 }
 </style>

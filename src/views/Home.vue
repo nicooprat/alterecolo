@@ -1,5 +1,5 @@
 <template>
-  <header class="py-4 px-4 mx-auto flex items-center">
+  <header class="w-full p-4 mx-auto flex items-center">
     <h1 class="text-2xl">
       <router-link
         :to="{ name: 'Home' }"
@@ -27,7 +27,7 @@
     <Score class="ml-auto" />
   </header>
 
-  <main class="px-4 mx-auto space-y-8">
+  <main class="w-full flex-grow flex flex-col px-4 mb-8 mx-auto space-y-8">
     <List :isLoading="isLoading" :items="items" />
   </main>
 
