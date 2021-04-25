@@ -64,6 +64,12 @@ export const getItems = computed(() => {
     return items
   }
 
+  // Search
+
+  if (state.search) {
+    items = fuse.search(state.search).map((match) => match.item)
+  }
+
   // Category
 
   const currentRoute = router.currentRoute.value
@@ -74,12 +80,6 @@ export const getItems = computed(() => {
         (c) => c.slug === currentRoute.params.category,
       )
     })
-  }
-
-  // Search
-
-  if (state.search) {
-    items = fuse.search(state.search).map((match) => match.item)
   }
 
   // Sort
