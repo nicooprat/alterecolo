@@ -72,10 +72,10 @@
         </span>
 
         <button
-          class="flex items-center py-2 px-3 ml-auto rounded-md focus:outline-none"
+          class="flex items-center py-2 px-3 ml-auto rounded-md"
           :class="{
-            'bg-primary-400 text-white hover:bg-primary-500': !checked,
-            'bg-none text-neutral-500 hover:bg-neutral-300': checked,
+            'bg-primary-400 text-white hover:bg-primary-500 focus:bg-primary-500 focus:outline-none': !checked,
+            'bg-none text-neutral-500 hover:bg-neutral-300 focus:bg-neutral-300 focus:outline-none': checked,
           }"
           type="button"
           @click.prevent="check"
