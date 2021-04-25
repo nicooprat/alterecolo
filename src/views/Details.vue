@@ -114,14 +114,29 @@
       </aside>
 
       <footer class="bg-neutral-50 p-8 mt-auto">
-        <div id="commento"></div>
+        <div
+          id="cusdis_thread"
+          ref="comments"
+          data-host="https://cusdis.com"
+          :data-app-id="CUSDIS_APP_ID"
+          :data-page-id="id"
+          :data-page-url="route.fullPath"
+          :data-page-title="item?.title"
+        />
       </footer>
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  onUnmounted,
+  watchEffect,
+} from 'vue'
+import { useRoute } from 'vue-router'
 
 import { getItems } from '@/composables/data'
 import { toggleId, isChecked } from '@/composables/score'
@@ -135,24 +150,39 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const script = document.createElement('script')
+    const item = computed(() =>
+      getItems.value.find((item) => item.id === props.id),
+    )
 
-    onMounted(() => {
-      // https://docs.commento.io/configuration/frontend/
-      script.setAttribute('data-no-fonts', true)
-      script.setAttribute('data-page-id', `alternative-${props.id}`)
-      script.src = '//cdn.commento.io/js/commento.js'
-      document.head.appendChild(script)
-      document.body.classList.add('scroll-lock')
+    const route = useRoute()
+
+    watchEffect(() => {
+      // If not loaded yet, or not current page
+      if (!item.value || !route.params.id) {
+        return
+      }
+      nextTick(() => {
+        document.body.classList.add('scroll-lock')
+        if (!window.renderCusdis) {
+          // https://cusdis.com/doc#/advanced/sdk
+          const script = document.createElement('script')
+          script.src = '//cusdis.com/js/cusdis.es.js'
+          document.head.appendChild(script)
+          document.body.classList.add('scroll-lock')
+        } else {
+          window.renderCusdis(document.querySelector('#cusdis_thread'))
+        }
+      })
     })
 
     onUnmounted(() => {
-      script.remove()
       document.body.classList.remove('scroll-lock')
     })
 
     return {
-      item: computed(() => getItems.value.find((item) => item.id === props.id)),
+      item,
+      route,
+      CUSDIS_APP_ID: import.meta.env.VITE_CUSDIS_APP_ID,
       close: () =>
         router.push({
           ...router.currentRoute.value.matched[0],
