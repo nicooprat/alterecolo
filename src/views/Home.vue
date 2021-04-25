@@ -31,11 +31,7 @@
     <List :isLoading="isLoading" :items="items" />
   </main>
 
-  <router-view v-slot="{ Component }">
-    <transition :duration="500" name="dialog" appear>
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <router-view />
 </template>
 
 <script lang="ts">
