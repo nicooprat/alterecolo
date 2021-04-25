@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 
 import { persist } from '@/composables/persist'
-import { getItems } from '@/composables/data'
+import { getAllItems } from '@/composables/data'
 
 const checkedIds = persist({
   key: 'checkedIds',
@@ -13,7 +13,7 @@ const checkedIds = persist({
 export const getCheckedIds = computed(() => checkedIds)
 
 export const getScore = computed(() => {
-  return getItems.value.reduce((score, item) => {
+  return getAllItems.value.reduce((score, item) => {
     return score + (checkedIds.value.has(item.id) ? item.difficulty : 0)
   }, 0)
 })

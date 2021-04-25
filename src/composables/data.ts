@@ -53,6 +53,8 @@ export const getCategories = computed(() => state.categories)
 
 export const getTotal = computed(() => state.items.length)
 
+export const getAllItems = computed(() => state.items)
+
 export const getItems = computed(() => {
   let items: Item[] = state.items
 
