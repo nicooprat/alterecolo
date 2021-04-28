@@ -7,6 +7,10 @@ module.exports = {
   mode: 'jit',
   purge: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
   theme: {
+    screens: {
+      xs: '520px',
+      ...defaultTheme.screens,
+    },
     extend: {
       colors: {
         white: '#fff',
@@ -15,9 +19,6 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Roboto', ...defaultTheme.fontFamily.sans],
-      },
-      screens: {
-        xs: '520px',
       },
       boxShadow: {
         md: `

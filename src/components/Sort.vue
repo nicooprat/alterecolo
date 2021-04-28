@@ -1,11 +1,11 @@
 <template>
-  <Menu v-slot="{ open }" as="nav" class="relative">
+  <Menu v-slot="{ open }" as="div" class="relative">
     <MenuButton
-      class="flex items-center space-x-2 font-bold rounded px-4 py-2 hover:bg-neutral-200 focus:bg-neutral-200 focus:outline-none"
+      class="w-full flex items-center justify-between gap-2 bg-neutral-200 bg-opacity-75 font-bold rounded px-4 py-2 ring-primary-400 hover:bg-neutral-200 focus:ring focus:outline-none"
       :class="{ 'bg-neutral-200': open }"
     >
       <span>{{ SORTS[sort] }}</span>
-      <svg width="12" height="12" viewBox="0 0 24 24">
+      <svg width="12" height="12" viewBox="0 0 24 24" class="flex-shrink-0">
         <path
           fill="currentColor"
           d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"
