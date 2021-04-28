@@ -101,31 +101,7 @@
               <aside
                 class="flex items-center mb-[5vh] px-8 w-full max-w-[65ch] mx-auto"
               >
-                <span v-if="item.difficulty" class="flex space-x-1 mr-4">
-                  <svg
-                    v-for="n in 3"
-                    :key="n"
-                    :class="
-                      checked
-                        ? {
-                            'text-neutral-300': item.difficulty < n,
-                            'text-neutral-500': item.difficulty >= n,
-                          }
-                        : {
-                            'text-neutral-300': item.difficulty < n,
-                            'text-primary-400': item.difficulty >= n,
-                          }
-                    "
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"
-                    />
-                  </svg>
-                </span>
+                <Stars :difficulty="item.difficulty" />
 
                 <button
                   class="flex items-center py-2 px-3 ml-auto rounded-md focus-visible:outline-none"
@@ -181,6 +157,7 @@ import { useRoute, onBeforeRouteLeave } from 'vue-router'
 import { getItems } from '@/composables/data'
 import { toggleId, isChecked } from '@/composables/score'
 import router from '@/router'
+import Stars from '@/components/Stars.vue'
 
 export default defineComponent({
   components: {
@@ -190,6 +167,7 @@ export default defineComponent({
     DialogOverlay,
     DialogTitle,
     DialogDescription,
+    Stars,
   },
   props: {
     id: {
