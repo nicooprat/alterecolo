@@ -10,7 +10,7 @@
               'text-neutral-500': difficulty >= n,
             }
           : {
-              'text-neutral-300': difficulty < n,
+              'text-primary-100': difficulty < n,
               'text-primary-400': difficulty >= n,
             }
       "
