@@ -31,6 +31,10 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    checked: {
+      type: Boolean,
+      required: true,
+    },
     difficulty: {
       type: Number,
       required: true,

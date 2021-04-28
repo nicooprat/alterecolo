@@ -101,25 +101,8 @@
               <aside
                 class="flex items-center mb-[5vh] px-8 w-full max-w-[65ch] mx-auto"
               >
-                <Stars :difficulty="item.difficulty" />
-
-                <button
-                  class="flex items-center py-2 px-3 ml-auto rounded-md focus-visible:outline-none"
-                  :class="{
-                    'bg-primary-400 text-white hover:bg-primary-500 ring-primary-400 ring-offset-2 focus-visible:ring': !checked,
-                    'bg-none text-neutral-500 hover:bg-neutral-200 ring-primary-400 ring-offset-2 focus-visible:ring': checked,
-                  }"
-                  type="button"
-                  @click.prevent="check"
-                >
-                  <svg class="mr-2" width="16" height="16" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"
-                    />
-                  </svg>
-                  <strong>Fait !</strong>
-                </button>
+                <Stars :difficulty="item.difficulty" :checked="checked" />
+                <Check :checked="checked" @click="check" />
               </aside>
 
               <footer class="bg-neutral-100 py-8 mt-auto">
@@ -158,6 +141,7 @@ import { getItems } from '@/composables/data'
 import { toggleId, isChecked } from '@/composables/score'
 import router from '@/router'
 import Stars from '@/components/Stars.vue'
+import Check from '@/components/Check.vue'
 
 export default defineComponent({
   components: {
@@ -168,6 +152,7 @@ export default defineComponent({
     DialogTitle,
     DialogDescription,
     Stars,
+    Check,
   },
   props: {
     id: {

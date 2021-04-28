@@ -45,25 +45,8 @@
       </nav>
 
       <div class="flex items-center gap-4 mt-auto">
-        <Stars :difficulty="item.difficulty" />
-
-        <button
-          class="flex items-center py-2 px-3 ml-auto rounded-md"
-          :class="{
-            'bg-primary-400 text-white hover:bg-primary-500 ring-primary-400 ring-offset-2 focus-visible:ring': !checked,
-            'bg-none text-neutral-500 hover:bg-neutral-200 ring-primary-400 ring-offset-2 focus-visible:ring': checked,
-          }"
-          type="button"
-          @click.prevent="check"
-        >
-          <svg class="mr-2" width="16" height="16" viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"
-            />
-          </svg>
-          <strong>Fait !</strong>
-        </button>
+        <Stars :difficulty="item.difficulty" :checked="checked" />
+        <Check :checked="checked" @click.prevent="check" />
       </div>
     </div>
   </router-link>
@@ -73,11 +56,13 @@
 import { computed, defineComponent } from 'vue'
 import { toggleId, isChecked } from '@/composables/score'
 import router from '@/router'
-import Stars from './stars.vue'
+import Stars from './Stars.vue'
+import Check from './Check.vue'
 
 export default defineComponent({
   components: {
     Stars,
+    Check,
   },
   props: {
     item: {
