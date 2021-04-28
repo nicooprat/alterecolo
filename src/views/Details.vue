@@ -1,7 +1,7 @@
 <template>
   <TransitionRoot appear :show="isOpen">
     <Dialog v-if="item" :open="isOpen" static as="template" @close="close">
-      <div class="fixed inset-0 pt-12 px-4 overflow-y-auto">
+      <div class="fixed z-20 inset-0 pt-12 px-4 overflow-y-auto">
         <TransitionChild
           enter="duration-300 ease-out"
           enterFrom="opacity-0"

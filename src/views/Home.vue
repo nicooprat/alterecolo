@@ -1,5 +1,7 @@
 <template>
-  <header class="w-full px-4 py-8 mx-auto flex items-center gap-4">
+  <header
+    class="w-full px-4 py-8 lg:py-12 mx-auto flex items-center gap-4 sticky top-0 z-10 bg-neutral-100 bg-opacity-90 backdrop-filter backdrop-blur"
+  >
     <Logo class="logo" />
     <nav class="nav flex items-center flex-wrap gap-4">
       <Navigation
