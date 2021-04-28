@@ -130,8 +130,8 @@
                 <button
                   class="flex items-center py-2 px-3 ml-auto rounded-md focus-visible:outline-none"
                   :class="{
-                    'bg-primary-400 text-white hover:bg-primary-500': !checked,
-                    'bg-none text-neutral-500 hover:bg-neutral-300': checked,
+                    'bg-primary-400 text-white hover:bg-primary-500 ring-primary-400 ring-offset-2 focus-visible:ring': !checked,
+                    'bg-none text-neutral-500 hover:bg-neutral-200 ring-primary-400 ring-offset-2 focus-visible:ring': checked,
                   }"
                   type="button"
                   @click.prevent="check"
