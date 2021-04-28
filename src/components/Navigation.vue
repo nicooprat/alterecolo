@@ -1,7 +1,7 @@
 <template>
   <Menu v-slot="{ open }" as="div" class="relative">
     <MenuButton
-      class="w-full flex items-center justify-between gap-2 bg-neutral-200 bg-opacity-75 font-bold rounded px-4 py-2 ring-primary-400 hover:bg-neutral-200 focus:ring focus:outline-none"
+      class="w-full flex items-center justify-between gap-2 bg-neutral-200 bg-opacity-75 font-bold rounded px-4 py-2 ring-primary-400 hover:bg-neutral-200 focus-visible:ring focus-visible:outline-none"
       :class="{ 'bg-neutral-200': open }"
     >
       <span class="truncate flex-shrink">{{
@@ -16,7 +16,7 @@
     </MenuButton>
 
     <MenuItems
-      class="flex flex-col absolute z-10 left-0 min-w-[20ch] w-full p-1 mt-2 bg-white space-y-1 rounded-md shadow-lg focus:outline-none"
+      class="flex flex-col absolute z-10 left-0 min-w-[20ch] w-full p-1 mt-2 bg-white space-y-1 rounded-md shadow-lg focus-visible:outline-none"
     >
       <MenuItem v-for="link in allLinks" :key="link.slug" v-slot="{ active }">
         <router-link

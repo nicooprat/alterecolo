@@ -2,7 +2,7 @@
   <input
     type="text"
     :value="search"
-    class="min-w-[16ch] w-[30ch] py-2 px-4 rounded-md ring-primary-400 focus:ring focus:outline-none"
+    class="min-w-[16ch] w-[30ch] py-2 px-4 rounded-md ring-primary-400 focus-visible:ring focus-visible:outline-none"
     placeholder="Rechercher..."
     @focus="$event.target.select()"
     @keydown.esc="$emit('update:search', '')"

@@ -32,7 +32,7 @@
     </svg>
     <h2 class="text-xl font-bold mt-4">Aucun résultat</h2>
     <router-link
-      class="flex items-center py-2 px-3 mt-4 rounded-md bg-primary-400 text-white hover:bg-primary-500 focus:bg-primary-500 focus:outline-none"
+      class="flex items-center py-2 px-3 mt-4 rounded-md bg-primary-400 text-white hover:bg-primary-500 focus-visible:bg-primary-500 focus-visible:outline-none"
       :to="{ name: 'Home' }"
     >
       Supprimer les filtres

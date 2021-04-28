@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="getDetailsRoute"
-    class="flex flex-col bg-white shadow-md xs:rounded-lg -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus:ring focus:outline-none"
+    class="flex flex-col bg-white shadow-md xs:rounded-lg -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus-visible:ring focus-visible:outline-none"
   >
     <span
       style="padding-bottom: 56.25%"
@@ -35,7 +35,7 @@
             <router-link
               v-for="category in item.categories"
               :key="category.slug"
-              class="p-1 rounded-sm leading-tight underline hover:text-primary-400 ring-primary-400 focus:ring focus:outline-none"
+              class="p-1 rounded-sm leading-tight underline hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
               :to="{ name: 'Category', params: { category: category.slug } }"
             >
               {{ category.name }}
@@ -74,8 +74,8 @@
         <button
           class="flex items-center py-2 px-3 ml-auto rounded-md"
           :class="{
-            'bg-primary-400 text-white hover:bg-primary-500 focus:bg-primary-500 focus:outline-none': !checked,
-            'bg-none text-neutral-500 hover:bg-neutral-300 focus:bg-neutral-300 focus:outline-none': checked,
+            'bg-primary-400 text-white hover:bg-primary-500 focus-visible:bg-primary-500 focus-visible:outline-none': !checked,
+            'bg-none text-neutral-500 hover:bg-neutral-300 focus-visible:bg-neutral-300 focus-visible:outline-none': checked,
           }"
           type="button"
           @click.prevent="check"

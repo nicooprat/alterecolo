@@ -30,7 +30,7 @@
               class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto min-h-full bg-white rounded-t-xl flex flex-col flex-shrink-0"
             >
               <button
-                class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white hover:text-primary-500 focus:text-primary-500 focus:outline-none"
+                class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white hover:text-primary-500 focus-visible:text-primary-500 focus-visible:outline-none"
                 @click="close"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@
                   <router-link
                     v-for="category in item.categories"
                     :key="category.slug"
-                    class="rounded-sm mr-2 leading-tight underline hover:text-primary-400 ring-primary-400 focus:ring focus:outline-none"
+                    class="rounded-sm mr-2 leading-tight underline hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
                     :to="{
                       name: 'Category',
                       params: { category: category.slug },
@@ -128,7 +128,7 @@
                 </span>
 
                 <button
-                  class="flex items-center py-2 px-3 ml-auto rounded-md focus:outline-none"
+                  class="flex items-center py-2 px-3 ml-auto rounded-md focus-visible:outline-none"
                   :class="{
                     'bg-primary-400 text-white hover:bg-primary-500': !checked,
                     'bg-none text-neutral-500 hover:bg-neutral-300': checked,

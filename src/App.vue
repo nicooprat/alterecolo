@@ -32,6 +32,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@supports selector(*:focus-visible) {
+  [class*='focus-visible:'] {
+    @apply focus:outline-none;
+  }
+}
+
 #app {
   @apply w-full max-w-7xl mx-auto flex flex-grow flex-col;
 }
