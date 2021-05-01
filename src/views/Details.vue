@@ -1,7 +1,7 @@
 <template>
   <TransitionRoot appear :show="isOpen">
     <Dialog v-if="item" :open="isOpen" static as="template" @close="close">
-      <div class="fixed z-20 inset-0 pt-12 px-4 overflow-y-auto">
+      <div class="fixed z-20 inset-0 pt-12 sm:py-12 px-4 overflow-y-auto">
         <TransitionChild
           enter="duration-300 ease-out"
           enterFrom="opacity-0"
@@ -13,7 +13,7 @@
           @afterEnter="showComments = true"
         >
           <DialogOverlay
-            class="overlay bg-neutral-800 opacity-90 fixed inset-0 z-0 cursor-pointer"
+            class="bg-neutral-800 opacity-90 fixed inset-0 z-0 cursor-pointer"
           />
         </TransitionChild>
 
@@ -28,7 +28,8 @@
         >
           <DialogDescription as="template">
             <main
-              class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto min-h-full bg-white rounded-t-xl flex flex-col flex-shrink-0"
+              ref="root"
+              class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto min-h-full bg-white rounded-t-xl sm:rounded-xl flex flex-col flex-shrink-0"
             >
               <button
                 class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white hover:text-primary-500 focus-visible:text-primary-500 focus-visible:outline-none"
@@ -59,8 +60,8 @@
                 <DialogTitle as="template">
                   <h2>
                     <small class="block text-neutral-600 font-bold opacity-60">
-                      {{ item.replaced }}
-                      <span class="ml-1" aria-hidden>⤵︎</span>
+                      <!-- eslint-disable-next-line prettier/prettier -->
+                      {{ item.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
                     </small>
                     <strong>
                       {{ item.title }}
@@ -106,10 +107,64 @@
                 <Check :checked="checked" @click="check" />
               </aside>
 
+              <nav
+                class="flex flex-col sm:flex-row gap-4 mb-[5vh] px-8 w-full max-w-[65ch] mx-auto"
+              >
+                <template v-for="(sibling, i) in [prevItem, nextItem]" :key="i">
+                  <router-link
+                    v-if="sibling"
+                    :to="i === 0 ? prevItemRoute : nextItemRoute"
+                    class="flex-1 border border-neutral-200 flex items-center gap-4 rounded p-2 hover:bg-neutral-200 focus-visible:bg-neutral-200"
+                  >
+                    <img
+                      v-if="sibling.cover"
+                      class="w-10 h-10 flex-shrink-0 rounded object-cover"
+                      :src="sibling.cover.thumbnails.large.url"
+                      :alt="sibling.title"
+                      :width="sibling.cover.thumbnails.large.width"
+                      :height="sibling.cover.thumbnails.large.height"
+                    />
+                    <span
+                      v-else
+                      class="w-10 h-10 flex-shrink-0 bg-neutral-200 rounded overflow-hidden"
+                    />
+                    <span class="flex-grow leading-tight">
+                      <small class="block font-bold opacity-60">
+                        <!-- eslint-disable-next-line prettier/prettier -->
+                      {{ sibling.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
+                      </small>
+                      <strong class="block mt-1">
+                        {{ sibling.title }}
+                      </strong>
+                    </span>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      class="flex-shrink-0 self-center text-neutral-300 mx-2"
+                      :class="{ 'sm:order-first': i === 0 }"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"
+                        :transform="
+                          i === 0
+                            ? 'rotate(90) translate(0,-24)'
+                            : 'rotate(-90) translate(-24,0)'
+                        "
+                      />
+                    </svg>
+                  </router-link>
+                  <span
+                    v-else
+                    class="flex-1 border border-neutral-200 rounded"
+                  />
+                </template>
+              </nav>
+
               <footer class="bg-neutral-100 py-8 mt-auto">
                 <div
                   id="cusdis_thread"
-                  ref="comments"
                   class="max-w-[65ch] mx-auto px-8"
                   data-host="https://cusdis.com"
                   :data-app-id="CUSDIS_APP_ID"
@@ -127,7 +182,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, watchEffect, ref } from 'vue'
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  watch,
+  watchEffect,
+  ref,
+} from 'vue'
 import {
   TransitionRoot,
   TransitionChild,
@@ -137,8 +199,9 @@ import {
   DialogDescription,
 } from '@headlessui/vue'
 import { useRoute, onBeforeRouteLeave } from 'vue-router'
+import { onKeyStroke } from '@vueuse/core'
 
-import { getItems } from '@/composables/data'
+import { getItem, getPrevItem, getNextItem } from '@/composables/data'
 import { toggleId, isChecked } from '@/composables/score'
 import router from '@/router'
 import Stars from '@/components/Stars.vue'
@@ -162,16 +225,69 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const item = computed(() =>
-      getItems.value.find((item) => item.id === props.id),
+    const item = computed(() => getItem(props.id))
+
+    // Reset scroll on siblings route
+
+    const root = ref(null)
+    watch(
+      () => props.id,
+      () => {
+        // Can't apply ref="root" on correct element, bug? Fixed by referencing a child instead
+        root.value.parentElement.scrollTo(0, 0)
+      },
+      {
+        flust: 'post', // Wait for DOM update
+      },
     )
 
-    const route = useRoute()
+    // Siblings links
 
+    const prevItem = computed(() => getPrevItem(props.id))
+    const prevItemRoute = computed(() =>
+      prevItem.value
+        ? {
+            ...router.currentRoute.value,
+            params: {
+              ...router.currentRoute.value.params,
+              slug: prevItem.value.slug,
+              id: prevItem.value.id,
+            },
+          }
+        : {},
+    )
+    const goToPrevItem = () => router.push(prevItemRoute.value)
+    onKeyStroke('ArrowLeft', (e) => {
+      e.preventDefault()
+      goToPrevItem()
+    })
+
+    const nextItem = computed(() => getNextItem(props.id))
+    const nextItemRoute = computed(() =>
+      nextItem.value
+        ? {
+            ...router.currentRoute.value,
+            params: {
+              ...router.currentRoute.value.params,
+              slug: nextItem.value.slug,
+              id: nextItem.value.id,
+            },
+          }
+        : {},
+    )
+    const goToNextItem = () => router.push(nextItemRoute.value)
+    onKeyStroke('ArrowRight', (e) => {
+      e.preventDefault()
+      goToNextItem()
+    })
+
+    // Comments
+
+    const route = useRoute()
     const showComments = ref(false)
     watchEffect(() => {
       // If not loaded yet, or not current page
-      if (!item.value || !route.params.id || !showComments.value) {
+      if (!item.value || !showComments.value) {
         return
       }
       nextTick(() => {
@@ -187,6 +303,7 @@ export default defineComponent({
     })
 
     // Handle transition between pages by waiting for transition end in guard
+
     const isOpen = ref(true)
     const isClosed = ref(false)
     const prom = new Promise((resolve) => {
@@ -196,7 +313,6 @@ export default defineComponent({
         }
       })
     })
-
     onBeforeRouteLeave(() => {
       // Trigger closing
       isOpen.value = false
@@ -205,6 +321,10 @@ export default defineComponent({
 
     return {
       item,
+      prevItem,
+      prevItemRoute,
+      nextItem,
+      nextItemRoute,
       route,
       CUSDIS_APP_ID: import.meta.env.VITE_CUSDIS_APP_ID,
       close: () =>
@@ -217,6 +337,7 @@ export default defineComponent({
       isOpen,
       isClosed,
       showComments,
+      root,
     }
   },
 })

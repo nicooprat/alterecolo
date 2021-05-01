@@ -15,7 +15,7 @@ type Item = {
   title: string
   replaced: string
   desc: string
-  id: number
+  id: string
   link: URL
   difficulty: number
   slug: string
@@ -97,6 +97,20 @@ export const getItems = computed(() => {
 
   return items
 })
+
+export const getItem = (id: string) => {
+  return getItems.value.find((item) => item.id === id)
+}
+
+export const getPrevItem = (id: string) => {
+  const currentIndex = getItems.value.findIndex((item) => item.id === id)
+  return getItems.value[currentIndex - 1]
+}
+
+export const getNextItem = (id: string) => {
+  const currentIndex = getItems.value.findIndex((item) => item.id === id)
+  return getItems.value[currentIndex + 1]
+}
 
 export const isLoading = computed(() => state.isLoading)
 
