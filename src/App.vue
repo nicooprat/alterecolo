@@ -32,6 +32,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-neutral-800 text-neutral-100;
+  }
+}
+
 @supports selector(*:focus-visible) {
   [class*='focus-visible:'] {
     @apply focus:outline-none;

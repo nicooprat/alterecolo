@@ -25,8 +25,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
     <title>AlterÉcolo</title>
     <meta name="description" content="Alternatives écologiques et durables aux objets et habitudes du quotidien" />
+
+    <style>
+      /* Avoid white background before any CSS is loaded */
+      body {
+        background-color: #F1F5F9;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #303946;
+        }
+      }
+    </style>
   </head>
-  <body style="background-color: #F1F5F9;">
+  <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

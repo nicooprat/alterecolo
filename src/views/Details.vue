@@ -13,7 +13,7 @@
           @afterEnter="showComments = true"
         >
           <DialogOverlay
-            class="bg-neutral-800 opacity-90 fixed inset-0 z-0 cursor-pointer"
+            class="bg-neutral-800 dark:bg-neutral-900 opacity-90 backdrop-filter backdrop-grayscale fixed inset-0 z-0 cursor-pointer"
           />
         </TransitionChild>
 
@@ -26,154 +26,185 @@
           leaveTo="opacity-0 transform translate-y-1/2"
           as="template"
         >
-          <DialogDescription as="template">
-            <main
-              ref="root"
-              class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto min-h-full bg-white rounded-t-xl sm:rounded-xl flex flex-col flex-shrink-0"
+          <DialogDescription as="div" class="main">
+            <transition
+              enterActiveClass="duration-500 delay-200 ease-in-dialog"
+              :enterFromClass="`opacity-0 transform ${
+                transitionDirection === 'right'
+                  ? '-translate-x-full'
+                  : 'translate-x-full'
+              }`"
+              enterToClass="opacity-100 transform translate-x-0"
+              leaveActiveClass="duration-200 ease-in"
+              leaveFromClass="opacity-100 transform translate-x-0"
+              :leaveToClass="`opacity-0 transform ${
+                transitionDirection === 'left'
+                  ? '-translate-x-full'
+                  : 'translate-x-full'
+              }`"
+              @afterEnter="focus"
             >
-              <button
-                class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white hover:text-primary-500 focus-visible:text-primary-500 focus-visible:outline-none"
-                @click="close"
+              <main
+                :key="item.id"
+                class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto bg-white dark:bg-neutral-900 dark:text-white rounded-t-xl sm:rounded-xl flex flex-col flex-shrink-0"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z"
-                  />
-                </svg>
-              </button>
-
-              <header
-                v-if="item.cover"
-                class="pb-[56.25%] relative bg-neutral-50"
-              >
-                <img
-                  class="absolute inset-0 w-full h-full object-cover"
-                  :src="item.cover.thumbnails.large.url"
-                  :alt="item.title"
-                  :width="item.cover.thumbnails.large.width"
-                  :height="item.cover.thumbnails.large.height"
-                />
-              </header>
-
-              <article class="prose w-full mx-auto my-[5vh] px-8">
-                <DialogTitle as="template">
-                  <h2>
-                    <small class="block text-neutral-600 font-bold opacity-60">
-                      <!-- eslint-disable-next-line prettier/prettier -->
-                      {{ item.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
-                    </small>
-                    <strong>
-                      {{ item.title }}
-                    </strong>
-                  </h2>
-                </DialogTitle>
-
-                <nav>
-                  <router-link
-                    v-for="category in item.categories"
-                    :key="category.slug"
-                    class="rounded-sm mr-2 leading-tight underline hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
-                    :to="{
-                      name: 'Category',
-                      params: { category: category.slug },
-                    }"
-                  >
-                    {{ category.name }}
-                  </router-link>
-                </nav>
-
-                <p v-if="item.desc" class="whitespace-pre-line">
-                  {{ item.desc }}
-                </p>
-
-                <p
-                  v-if="item.link"
-                  class="rounded border border-neutral-200 px-2 text-neutral-500 truncate"
+                <button
+                  ref="initialFocus"
+                  class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white dark:text-neutral-900 hover:text-primary-500 focus-visible:text-primary-500 focus-visible:outline-none"
+                  @click="close"
                 >
-                  <small
-                    >Source :
-                    <a :href="item.link" class="text-current">{{
-                      item.link
-                    }}</a></small
-                  >
-                </p>
-              </article>
-
-              <aside
-                class="flex items-center mb-[5vh] px-8 w-full max-w-[65ch] mx-auto"
-              >
-                <Stars :difficulty="item.difficulty" :checked="checked" />
-                <Check :checked="checked" @click="check" />
-              </aside>
-
-              <nav
-                class="flex flex-col sm:flex-row gap-4 mb-[5vh] px-8 w-full max-w-[65ch] mx-auto"
-              >
-                <template v-for="(sibling, i) in [prevItem, nextItem]" :key="i">
-                  <router-link
-                    v-if="sibling"
-                    :to="i === 0 ? prevItemRoute : nextItemRoute"
-                    class="flex-1 border border-neutral-200 flex items-center gap-4 rounded p-2 hover:bg-neutral-200 focus-visible:bg-neutral-200"
-                  >
-                    <img
-                      v-if="sibling.cover"
-                      class="w-10 h-10 flex-shrink-0 rounded object-cover"
-                      :src="sibling.cover.thumbnails.large.url"
-                      :alt="sibling.title"
-                      :width="sibling.cover.thumbnails.large.width"
-                      :height="sibling.cover.thumbnails.large.height"
+                  <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path
+                      fill="currentColor"
+                      d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z"
                     />
+                  </svg>
+                </button>
+
+                <header
+                  v-if="item.cover"
+                  class="pb-[56.25%] relative bg-neutral-50"
+                >
+                  <img
+                    class="absolute inset-0 w-full h-full object-cover"
+                    :src="item.cover.thumbnails.large.url"
+                    :alt="item.title"
+                    :width="item.cover.thumbnails.large.width"
+                    :height="item.cover.thumbnails.large.height"
+                  />
+                </header>
+
+                <article
+                  class="prose dark:prose-light w-full mx-auto my-8 px-8"
+                >
+                  <DialogTitle as="template">
+                    <h2>
+                      <small class="block font-bold opacity-50">
+                        <!-- eslint-disable-next-line prettier/prettier -->
+                      {{ item.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
+                      </small>
+                      <strong>
+                        {{ item.title }}
+                      </strong>
+                    </h2>
+                  </DialogTitle>
+
+                  <nav>
+                    <router-link
+                      v-for="category in item.categories"
+                      :key="category.slug"
+                      class="rounded-sm mr-2 leading-tight underline hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
+                      :to="{
+                        name: 'Category',
+                        params: { category: category.slug },
+                      }"
+                    >
+                      {{ category.name }}
+                    </router-link>
+                  </nav>
+
+                  <p v-if="item.desc" class="whitespace-pre-line">
+                    {{ item.desc }}
+                  </p>
+
+                  <p v-if="item.link" class="opacity-50 truncate">
+                    <small>
+                      Source :
+                      <a :href="item.link" class="text-current">
+                        {{ item.link }}
+                      </a>
+                    </small>
+                  </p>
+                </article>
+
+                <aside
+                  class="flex items-center mb-8 px-8 w-full max-w-[65ch] mx-auto"
+                >
+                  <Stars :difficulty="item.difficulty" :checked="checked" />
+                  <Check :checked="checked" @click="check" />
+                </aside>
+
+                <nav
+                  v-if="prevItem || nextItem"
+                  class="flex flex-col sm:flex-row gap-4 mb-8 px-8 w-full max-w-[65ch] mx-auto"
+                >
+                  <template
+                    v-for="(sibling, i) in [prevItem, nextItem]"
+                    :key="i"
+                  >
+                    <router-link
+                      v-if="sibling"
+                      v-slot="{ href }"
+                      :to="i === 0 ? prevItemRoute : nextItemRoute"
+                      custom
+                    >
+                      <a
+                        class="flex-1 bg-neutral-100 dark:bg-neutral-800 flex items-center gap-4 rounded p-2 hover:bg-neutral-200 focus-visible:bg-neutral-200 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700"
+                        :href="href"
+                        @click.prevent="
+                          () => (i === 0 ? goToPrevItem() : goToNextItem())
+                        "
+                      >
+                        <img
+                          v-if="sibling.cover"
+                          class="w-10 h-10 flex-shrink-0 rounded object-cover"
+                          :src="sibling.cover.thumbnails.large.url"
+                          :alt="sibling.title"
+                          :width="sibling.cover.thumbnails.large.width"
+                          :height="sibling.cover.thumbnails.large.height"
+                        />
+                        <span
+                          v-else
+                          class="w-10 h-10 flex-shrink-0 bg-neutral-200 rounded overflow-hidden"
+                        />
+                        <span class="flex-grow leading-tight">
+                          <small class="block font-bold opacity-60">
+                            <!-- eslint-disable-next-line prettier/prettier -->
+                            {{ sibling.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
+                          </small>
+                          <strong class="block mt-1">
+                            {{ sibling.title }}
+                          </strong>
+                        </span>
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          class="flex-shrink-0 self-center text-neutral-300 mx-2"
+                          :class="{ 'sm:order-first': i === 0 }"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"
+                            :transform="
+                              i === 0
+                                ? 'rotate(90) translate(0,-24)'
+                                : 'rotate(-90) translate(-24,0)'
+                            "
+                          />
+                        </svg>
+                      </a>
+                    </router-link>
                     <span
                       v-else
-                      class="w-10 h-10 flex-shrink-0 bg-neutral-200 rounded overflow-hidden"
+                      class="flex-1 border border-neutral-200 rounded"
                     />
-                    <span class="flex-grow leading-tight">
-                      <small class="block font-bold opacity-60">
-                        <!-- eslint-disable-next-line prettier/prettier -->
-                      {{ sibling.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
-                      </small>
-                      <strong class="block mt-1">
-                        {{ sibling.title }}
-                      </strong>
-                    </span>
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      class="flex-shrink-0 self-center text-neutral-300 mx-2"
-                      :class="{ 'sm:order-first': i === 0 }"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"
-                        :transform="
-                          i === 0
-                            ? 'rotate(90) translate(0,-24)'
-                            : 'rotate(-90) translate(-24,0)'
-                        "
-                      />
-                    </svg>
-                  </router-link>
-                  <span
-                    v-else
-                    class="flex-1 border border-neutral-200 rounded"
-                  />
-                </template>
-              </nav>
+                  </template>
+                </nav>
 
-              <footer class="bg-neutral-100 py-8 mt-auto">
-                <div
-                  id="cusdis_thread"
-                  class="max-w-[65ch] mx-auto px-8"
-                  data-host="https://cusdis.com"
-                  :data-app-id="CUSDIS_APP_ID"
-                  :data-page-id="id"
-                  :data-page-url="route.fullPath"
-                  :data-page-title="item?.title"
-                />
-              </footer>
-            </main>
+                <footer class="py-8 mt-auto">
+                  <div
+                    id="cusdis_thread"
+                    class="max-w-[65ch] mx-auto px-8"
+                    data-host="https://cusdis.com"
+                    :data-app-id="CUSDIS_APP_ID"
+                    :data-page-id="id"
+                    :data-page-url="route.fullPath"
+                    :data-page-title="item?.title"
+                  />
+                </footer>
+              </main>
+            </transition>
           </DialogDescription>
         </TransitionChild>
       </div>
@@ -182,14 +213,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  nextTick,
-  watch,
-  watchEffect,
-  ref,
-} from 'vue'
+import { computed, defineComponent, nextTick, watchEffect, ref } from 'vue'
 import {
   TransitionRoot,
   TransitionChild,
@@ -227,19 +251,14 @@ export default defineComponent({
   setup(props) {
     const item = computed(() => getItem(props.id))
 
-    // Reset scroll on siblings route
+    // Focus
 
-    const root = ref(null)
-    watch(
-      () => props.id,
-      () => {
-        // Can't apply ref="root" on correct element, bug? Fixed by referencing a child instead
-        root.value.parentElement.scrollTo(0, 0)
-      },
-      {
-        flust: 'post', // Wait for DOM update
-      },
-    )
+    const initialFocus = ref(null)
+    const focus = () => initialFocus.value.focus()
+
+    // Transition direction
+
+    const transitionDirection = ref('left')
 
     // Siblings links
 
@@ -256,7 +275,10 @@ export default defineComponent({
           }
         : {},
     )
-    const goToPrevItem = () => router.push(prevItemRoute.value)
+    const goToPrevItem = () => {
+      router.push(prevItemRoute.value)
+      transitionDirection.value = 'right'
+    }
     onKeyStroke('ArrowLeft', (e) => {
       e.preventDefault()
       goToPrevItem()
@@ -275,7 +297,10 @@ export default defineComponent({
           }
         : {},
     )
-    const goToNextItem = () => router.push(nextItemRoute.value)
+    const goToNextItem = () => {
+      router.push(nextItemRoute.value)
+      transitionDirection.value = 'left'
+    }
     onKeyStroke('ArrowRight', (e) => {
       e.preventDefault()
       goToNextItem()
@@ -299,6 +324,7 @@ export default defineComponent({
         } else {
           window.renderCusdis(document.querySelector('#cusdis_thread'))
         }
+        showComments.value = false
       })
     })
 
@@ -323,8 +349,10 @@ export default defineComponent({
       item,
       prevItem,
       prevItemRoute,
+      goToPrevItem,
       nextItem,
       nextItemRoute,
+      goToNextItem,
       route,
       CUSDIS_APP_ID: import.meta.env.VITE_CUSDIS_APP_ID,
       close: () =>
@@ -337,8 +365,21 @@ export default defineComponent({
       isOpen,
       isClosed,
       showComments,
-      root,
+      transitionDirection,
+      initialFocus,
+      focus,
     }
   },
 })
 </script>
+
+<style lang="postcss" scoped>
+.main {
+  @apply grid;
+  grid-template-areas: 'main';
+}
+
+.main > * {
+  grid-area: main;
+}
+</style>

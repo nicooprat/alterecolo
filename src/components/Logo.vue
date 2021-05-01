@@ -2,7 +2,7 @@
   <h1 class="text-2xl">
     <router-link
       :to="{ name: 'Home' }"
-      class="flex items-center gap-4 text-primary-400 ring-primary-400 ring-offset-2 ring-offset-gray-100 rounded focus-visible:ring"
+      class="flex items-center gap-4 text-primary-400 ring-primary-400 ring-offset-2 ring-offset-gray-100 dark:ring-offset-neutral-800 rounded focus-visible:ring"
     >
       <svg viewBox="0 0 60 70" width="34" height="40">
         <path

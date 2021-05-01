@@ -1,8 +1,8 @@
 <template>
   <Menu v-slot="{ open }" as="div" class="relative">
     <MenuButton
-      class="w-full flex items-center justify-between gap-2 bg-neutral-200 bg-opacity-75 font-bold rounded px-4 py-2 ring-primary-400 hover:bg-neutral-200 focus-visible:ring focus-visible:outline-none"
-      :class="{ 'bg-neutral-200': open }"
+      class="w-full flex items-center justify-between gap-2 bg-neutral-200 dark:bg-neutral-900 bg-opacity-75 font-bold rounded px-4 py-2 ring-primary-400 hover:bg-neutral-200 hover:dark:bg-neutral-700 focus-visible:ring focus-visible:outline-none"
+      :class="{ 'bg-neutral-200 dark:bg-neutral-700': open }"
     >
       <span>{{ SORTS[sort] }}</span>
       <svg width="12" height="12" viewBox="0 0 24 24" class="flex-shrink-0">
@@ -14,19 +14,17 @@
     </MenuButton>
 
     <MenuItems
-      class="flex flex-col absolute z-10 left-0 min-w-[20ch] w-full p-1 mt-2 bg-white space-y-1 rounded-md shadow-lg focus-visible:outline-none"
+      class="flex flex-col absolute z-10 left-0 min-w-[20ch] w-full p-1 mt-2 bg-white dark:bg-neutral-900 space-y-1 rounded-md shadow-lg focus-visible:outline-none"
     >
       <MenuItem v-for="(label, key) in SORTS" :key="key" v-slot="{ active }">
         <router-link
-          type="button"
           class="cursor-pointer text-left rounded px-2 py-1 whitespace-nowrap"
           :class="{
             'bg-primary-500 text-white': active && sort === key,
             'bg-primary-400 text-white': !active && sort === key,
-            'bg-neutral-200': active,
+            'bg-neutral-200 dark:bg-neutral-700': active && sort !== key,
           }"
           :to="{ ...currentRoute, query: { ...currentRoute.query, sort: key } }"
-          @click.prevent="$emit('update:sort', key)"
         >
           {{ label }}
         </router-link>
