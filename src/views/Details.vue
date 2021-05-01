@@ -10,6 +10,7 @@
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
           @afterLeave="isClosed = true"
+          @afterEnter="showComments = true"
         >
           <DialogOverlay
             class="overlay bg-neutral-800 opacity-90 fixed inset-0 z-0 cursor-pointer"
@@ -17,7 +18,7 @@
         </TransitionChild>
 
         <TransitionChild
-          enter="duration-300 delay-100 ease-out-dialog"
+          enter="duration-500 delay-100 ease-in-dialog"
           enterFrom="opacity-0 transform translate-y-1/2"
           enterTo="opacity-100 transform translate-y-0"
           leave="duration-200 ease-in"
@@ -167,9 +168,10 @@ export default defineComponent({
 
     const route = useRoute()
 
+    const showComments = ref(false)
     watchEffect(() => {
       // If not loaded yet, or not current page
-      if (!item.value || !route.params.id) {
+      if (!item.value || !route.params.id || !showComments.value) {
         return
       }
       nextTick(() => {
@@ -187,18 +189,18 @@ export default defineComponent({
     // Handle transition between pages by waiting for transition end in guard
     const isOpen = ref(true)
     const isClosed = ref(false)
+    const prom = new Promise((resolve) => {
+      watchEffect(() => {
+        if (isClosed.value) {
+          resolve()
+        }
+      })
+    })
 
     onBeforeRouteLeave(() => {
       // Trigger closing
       isOpen.value = false
-      // Wait for transition end
-      return new Promise((resolve) => {
-        watchEffect(() => {
-          if (isClosed.value) {
-            resolve()
-          }
-        })
-      })
+      return prom
     })
 
     return {
@@ -214,6 +216,7 @@ export default defineComponent({
       check: () => toggleId(props.id),
       isOpen,
       isClosed,
+      showComments,
     }
   },
 })

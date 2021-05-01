@@ -34,7 +34,7 @@ module.exports = {
             `,
       },
       transitionTimingFunction: {
-        'in-dialog': 'cubic-bezier(1, 0, 1, 0.36)',
+        'in-dialog': 'cubic-bezier(0.05, 1, 0.44, 1)',
       },
     },
   },
