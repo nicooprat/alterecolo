@@ -93,7 +93,7 @@ export const getItems = computed(() => {
     difficult: (a: Item, b: Item) => (a.difficulty > b.difficulty ? -1 : 1),
   }
 
-  items = items.sort(sorts[state.sort])
+  items = items.slice().sort(sorts[state.sort])
 
   return items
 })
