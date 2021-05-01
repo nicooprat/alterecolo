@@ -18,9 +18,6 @@ module.exports = {
         primary: colors.green,
         neutral: colors.blueGray,
       },
-      fontFamily: {
-        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
-      },
       boxShadow: {
         md: `
           0 0.8px 1.3px rgba(0, 0, 0, 0.07),
