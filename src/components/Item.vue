@@ -1,7 +1,6 @@
 <template>
-  <router-link
-    :to="getDetailsRoute"
-    class="flex flex-col bg-white dark:bg-neutral-900 shadow-md xs:rounded-xl -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus-visible:ring focus-visible:outline-none"
+  <div
+    class="flex flex-col bg-white dark:bg-neutral-900 shadow-md relative xs:rounded-xl -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus-visible:ring focus-visible:outline-none"
   >
     <span
       style="padding-bottom: 56.25%"
@@ -19,40 +18,39 @@
       <span
         v-else
         class="absolute inset-0 bg-neutral-200 dark:bg-neutral-700"
-      ></span>
+      />
     </span>
 
     <div class="p-4 flex-grow flex flex-col">
-      <span class="mb-2">
+      <router-link class="mb-2" :to="getDetailsRoute">
+        <div class="absolute inset-0" aria-hidden />
         <small class="block font-bold opacity-50">
           {{ item.replaced }}&nbsp;<span class="ml-1">⤵︎</span>
         </small>
         <strong class="block font-bold text-lg leading-tight">
           {{ item.title }}
         </strong>
-      </span>
+      </router-link>
 
       <nav class="mb-2">
         <small class="flex flex-wrap -m-1">
-          <object>
-            <router-link
-              v-for="category in item.categories"
-              :key="category.slug"
-              class="p-1 rounded-sm leading-tight underline opacity-75 hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
-              :to="{ name: 'Category', params: { category: category.slug } }"
-            >
-              {{ category.name }}
-            </router-link>
-          </object>
+          <router-link
+            v-for="category in item.categories"
+            :key="category.slug"
+            class="p-1 rounded-sm leading-tight underline opacity-75 relative hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
+            :to="{ name: 'Category', params: { category: category.slug } }"
+          >
+            {{ category.name }}
+          </router-link>
         </small>
       </nav>
 
       <div class="flex items-center gap-4 mt-auto">
         <Stars :difficulty="item.difficulty" :checked="checked" />
-        <Check :checked="checked" @click.prevent="check" />
+        <Check :checked="checked" class="relative" @click.prevent="check" />
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script lang="ts">
