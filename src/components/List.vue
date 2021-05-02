@@ -1,13 +1,13 @@
 <template>
   <nav
     v-if="isLoading || items.length"
-    class="grid gap-10 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    class="grid gap-4 xs:gap-8 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
   >
     <template v-if="isLoading">
       <span
         v-for="item in 12"
         :key="item"
-        class="h-48 bg-neutral-200 dark:bg-neutral-900 rounded-xl"
+        class="h-32 xs:h-48 bg-neutral-200 dark:bg-neutral-900 xs:rounded-xl -mx-4 xs:-mx-0"
       />
     </template>
     <template v-else-if="items.length">
@@ -17,6 +17,20 @@
         :item="item"
         class="-mx-4 xs:-mx-0"
       />
+      <a
+        href="https://bit.ly/AlterEcolo-proposer"
+        class="flex p-8 bg-neutral-200 dark:bg-neutral-900 xs:rounded-xl -mx-4 xs:-mx-0 hover:bg-primary-400 hover:text-white"
+        title="Proposer une alternative"
+      >
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          class="opacity-50 m-auto"
+        >
+          <path fill="currentColor" d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z" />
+        </svg>
+      </a>
     </template>
   </nav>
 
