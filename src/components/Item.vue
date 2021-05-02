@@ -1,10 +1,9 @@
 <template>
   <div
-    class="flex flex-col bg-white dark:bg-neutral-900 shadow-md relative xs:rounded-xl -mx-4 xs:-mx-0 ring-primary-400 hover:shadow-lg focus-visible:ring focus-visible:outline-none"
+    class="xs:flex flex-col bg-white dark:bg-neutral-900 shadow-md relative xs:rounded-xl -mx-4 xs:-mx-0 hover:shadow-lg"
   >
     <span
-      style="padding-bottom: 56.25%"
-      class="relative xs:rounded-t-xl overflow-hidden"
+      class="relative rounded-md xs:rounded-t-xl xs:rounded-b-none overflow-hidden float-right xs:float-none w-14 h-14 m-4 xs:m-0 xs:w-full xs:h-auto xs:pb-[56.25%]"
     >
       <img
         v-if="item.cover"
@@ -21,23 +20,32 @@
       />
     </span>
 
-    <div class="p-4 flex-grow flex flex-col">
-      <router-link class="mb-2" :to="getDetailsRoute">
-        <div class="absolute inset-0" aria-hidden />
-        <small class="block font-bold opacity-50">
-          {{ item.replaced }}&nbsp;<span class="ml-1">⤵︎</span>
+    <div class="p-4 flex-grow flex flex-col gap-2">
+      <router-link
+        class="ring-primary-400 ring-offset-2 rounded focus-visible:ring focus-visible:outline-none"
+        :to="getDetailsRoute"
+      >
+        <div class="absolute inset-0" />
+        <small class="flex items-center font-bold opacity-50">
+          <span>{{ item.replaced }}</span
+          >&nbsp;<svg viewBox="0 0 24 24" width="16" height="16">
+            <path
+              fill="currentColor"
+              d="M14.59 16.004L5.982 7.397l1.414-1.414 8.607 8.606V7.004h2v11h-11v-2z"
+            />
+          </svg>
         </small>
         <strong class="block font-bold text-lg leading-tight">
           {{ item.title }}
         </strong>
       </router-link>
 
-      <nav class="mb-2">
-        <small class="flex flex-wrap -m-1">
+      <nav>
+        <small class="flex flex-wrap gap-2">
           <router-link
             v-for="category in item.categories"
             :key="category.slug"
-            class="p-1 rounded-sm leading-tight underline opacity-75 relative hover:text-primary-400 ring-primary-400 focus-visible:ring focus-visible:outline-none"
+            class="rounded-sm leading-tight underline opacity-75 relative hover:text-primary-400 ring-primary-400 ring-offset-2 focus-visible:ring focus-visible:outline-none"
             :to="{ name: 'Category', params: { category: category.slug } }"
           >
             {{ category.name }}

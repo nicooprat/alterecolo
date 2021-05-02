@@ -13,7 +13,7 @@
           @afterEnter="showComments = true"
         >
           <DialogOverlay
-            class="bg-neutral-800 dark:bg-neutral-900 opacity-90 backdrop-filter backdrop-grayscale fixed inset-0 z-0 cursor-pointer"
+            class="bg-neutral-800 dark:bg-neutral-700 opacity-90 backdrop-filter backdrop-blur fixed inset-0 z-0 cursor-pointer"
           />
         </TransitionChild>
 
@@ -79,9 +79,16 @@
                 >
                   <DialogTitle as="template">
                     <h2>
-                      <small class="block font-bold opacity-50">
+                      <small
+                        class="flex items-center font-bold opacity-50 text-base"
+                      >
                         <!-- eslint-disable-next-line prettier/prettier -->
-                      {{ item.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
+                      {{ item.replaced }}&nbsp;<svg viewBox="0 0 24 24" width="24" height="24" class="opacity-70">
+                          <path
+                            fill="currentColor"
+                            d="M14.59 16.004L5.982 7.397l1.414-1.414 8.607 8.606V7.004h2v11h-11v-2z"
+                          />
+                        </svg>
                       </small>
                       <strong>
                         {{ item.title }}
@@ -107,10 +114,10 @@
                     {{ item.desc }}
                   </p>
 
-                  <p v-if="item.link" class="opacity-50 truncate">
+                  <p v-if="item.link" class="!text-neutral-400 truncate">
                     <small>
                       Source :
-                      <a :href="item.link" class="text-current">
+                      <a :href="item.link" class="!text-current">
                         {{ item.link }}
                       </a>
                     </small>
@@ -158,9 +165,14 @@
                           class="w-10 h-10 flex-shrink-0 bg-neutral-200 rounded overflow-hidden"
                         />
                         <span class="flex-grow leading-tight">
-                          <small class="block font-bold opacity-60">
+                          <small class="flex items-center font-bold opacity-60">
                             <!-- eslint-disable-next-line prettier/prettier -->
-                            {{ sibling.replaced }}&nbsp;<span class="ml-1" aria-hidden>⤵︎</span>
+                            {{ sibling.replaced }}&nbsp;<svg viewBox="0 0 24 24" width="16" height="16">
+                              <path
+                                fill="currentColor"
+                                d="M14.59 16.004L5.982 7.397l1.414-1.414 8.607 8.606V7.004h2v11h-11v-2z"
+                              />
+                            </svg>
                           </small>
                           <strong class="block mt-1">
                             {{ sibling.title }}
@@ -170,7 +182,7 @@
                           width="12"
                           height="12"
                           viewBox="0 0 24 24"
-                          class="flex-shrink-0 self-center text-neutral-300 mx-2"
+                          class="flex-shrink-0 self-center opacity-50 mx-2"
                           :class="{ 'sm:order-first': i === 0 }"
                         >
                           <path
@@ -187,12 +199,12 @@
                     </router-link>
                     <span
                       v-else
-                      class="flex-1 border border-neutral-200 rounded"
+                      class="flex-1 bg-neutral-100 dark:bg-neutral-800 rounded"
                     />
                   </template>
                 </nav>
 
-                <footer class="py-8 mt-auto">
+                <footer class="pt-4 pb-12 mt-auto">
                   <div
                     id="cusdis_thread"
                     class="max-w-[65ch] mx-auto px-8"
