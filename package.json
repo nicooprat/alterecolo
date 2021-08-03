@@ -6,7 +6,7 @@
     "build": "vuedx-typecheck . && vite build",
     "serve": "vite preview",
     "lint": "eslint '*/**/*.{js,ts,tsx,vue}' --quiet --fix",
-    "start": "TAILWIND_MODE=watch node_modules/netlify-cli/bin/run dev"
+    "start": "node_modules/netlify-cli/bin/run dev"
   },
   "dependencies": {
     "@headlessui/vue": "^1.4.0",
