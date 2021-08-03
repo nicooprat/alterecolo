@@ -27,6 +27,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import { isLoading, getSearch, getSort, getTotal } from '@/composables/data'
 import Logo from '@/components/Logo.vue'
 import Navigation from '@/components/Navigation.vue'
 import List from '@/components/List.vue'
