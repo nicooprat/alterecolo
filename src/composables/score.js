@@ -18,6 +18,10 @@ export const getScore = computed(() => {
   }, 0)
 })
 
+export const getCheckedItems = computed(() => {
+  return getAllItems.value.filter((item) => checkedIds.value.has(item.id))
+})
+
 export const toggleId = (id) => {
   checkedIds.value.has(id)
     ? checkedIds.value.delete(id)

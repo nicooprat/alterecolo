@@ -60,7 +60,6 @@
                     />
                   </svg>
                 </button>
-
                 <header
                   v-if="item.cover"
                   class="pb-[56.25%] relative bg-neutral-50"

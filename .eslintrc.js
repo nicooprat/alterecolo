@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     'vue/attribute-hyphenation': ['error', 'never'],
     '@typescript-eslint/no-unused-vars': 'error',
+    'vue/script-setup-uses-vars': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
   },

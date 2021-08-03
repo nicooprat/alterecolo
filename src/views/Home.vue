@@ -1,7 +1,11 @@
 <template>
   <header
-    class="w-full px-4 pt-4 pb-8 xs:py-8 lg:py-12 mx-auto flex items-center gap-4 sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800 bg-opacity-90 dark:bg-opacity-90 backdrop-filter backdrop-blur"
+    class="w-full px-4 pt-4 pb-8 xs:py-8 lg:py-12 mx-auto flex items-center gap-4 sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800 bg-opacity-90 dark:bg-opacity-90"
   >
+    <span
+      class="backdrop-filter backdrop-blur absolute inset-0 -z-1"
+      aria-hidden
+    />
     <Logo class="logo" />
     <nav class="nav flex items-center flex-wrap gap-4">
       <Navigation
@@ -34,7 +38,6 @@ import List from '@/components/List.vue'
 import Search from '@/components/Search.vue'
 import Score from '@/components/Score.vue'
 import Sort from '@/components/Sort.vue'
-import { isLoading, getSearch, getSort, getTotal } from '@/composables/data'
 
 export default defineComponent({
   components: {
