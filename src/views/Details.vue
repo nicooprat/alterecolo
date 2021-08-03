@@ -13,7 +13,7 @@
           @afterEnter="showComments = true"
         >
           <DialogOverlay
-            class="bg-neutral-800 dark:bg-neutral-700 opacity-90 backdrop-filter backdrop-blur fixed inset-0 z-0 cursor-pointer"
+            class="bg-neutral-800 dark:bg-neutral-700 opacity-90 fixed inset-0 z-0 cursor-pointer"
           />
         </TransitionChild>
 
