@@ -77,7 +77,7 @@ export default defineComponent({
       const all = [
         {
           name: 'Toutes',
-          slug: 'all',
+          slug: '',
           count: props.total,
           link: {
             name: 'Home',
