@@ -19,11 +19,12 @@
     <PopoverPanel
       class="absolute right-0 mt-2 z-10 bg-white dark:bg-neutral-900 rounded-lg shadow-lg w-[24rem]"
     >
-      <ul v-if="getCheckedItems.length" class="max-h-[32rem] overflow-auto">
-        <li
+      <nav v-if="getCheckedItems.length" class="max-h-[32rem] overflow-auto">
+        <router-link
           v-for="item in getCheckedItems"
           :key="item.id"
-          class="flex items-center m-2"
+          :to="item.route"
+          class="flex items-center m-2 p-2 rounded hover:bg-neutral-200"
         >
           <span
             class="flex-shrink-0 relative rounded-md overflow-hidden float-left w-12 h-12 mr-2"
@@ -42,7 +43,7 @@
               class="absolute inset-0 bg-neutral-200 dark:bg-neutral-700"
             />
           </span>
-          <span class="flex-grow">
+          <span class="flex-grow flex flex-col">
             <small class="inline-block font-bold opacity-50 leading-tight">
               <!-- eslint-disable-next-line prettier/prettier -->
               {{ item.replaced }}&nbsp;<svg class="inline-block" viewBox="0 0 24 24" width="16" height="16">
@@ -58,7 +59,8 @@
           </span>
           <button
             class="rounded-full p-3 dark:text-neutral-100 hover:text-primary-500 focus-visible:text-primary-500 focus-visible:outline-none"
-            @click="toggleId(item.id)"
+            type="button"
+            @click.stop.prevent="toggleId(item.id)"
           >
             <svg width="16" height="16" viewBox="0 0 24 24">
               <path
@@ -67,8 +69,8 @@
               />
             </svg>
           </button>
-        </li>
-      </ul>
+        </router-link>
+      </nav>
       <p v-else class="p-4 text-md text-center">
         Vos actions réalisées apparaîtront ici !
       </p>
@@ -78,8 +80,9 @@
 
 <script lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import { defineComponent, watch, ref } from 'vue'
+import { defineComponent, watch, ref, computed } from 'vue'
 
+import router from '@/router'
 import { getScore, getCheckedItems, toggleId } from '@/composables/score'
 
 export default defineComponent({
@@ -100,7 +103,19 @@ export default defineComponent({
 
     return {
       getScore,
-      getCheckedItems,
+      getCheckedItems: computed(() => {
+        return getCheckedItems.value.map((item) => ({
+          ...item,
+          route: {
+            name: `${router.currentRoute.value.matched[0].name}Details`,
+            params: {
+              slug: item.slug,
+              id: item.id,
+            },
+            query: router.currentRoute.value.query,
+          },
+        }))
+      }),
       transitionName,
       toggleId,
     }
