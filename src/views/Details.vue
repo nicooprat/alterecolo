@@ -13,7 +13,7 @@
           @afterEnter="showComments = true"
         >
           <DialogOverlay
-            class="bg-neutral-800 dark:bg-neutral-700 opacity-90 fixed inset-0 z-0 cursor-pointer"
+            class="bg-neutral-800 opacity-90 fixed inset-0 z-0 cursor-pointer"
           />
         </TransitionChild>
 
@@ -46,11 +46,11 @@
             >
               <main
                 :key="item.id"
-                class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto bg-white dark:bg-neutral-900 dark:text-white rounded-t-xl sm:rounded-xl flex flex-col flex-shrink-0"
+                class="relative overflow-hidden w-full shadow-dialog max-w-[80ch] mx-auto bg-white rounded-t-xl sm:rounded-xl flex flex-col flex-shrink-0"
               >
                 <button
                   ref="initialFocus"
-                  class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white dark:text-neutral-900 hover:text-primary-500 focus-visible:text-primary-500 focus-visible:outline-none"
+                  class="absolute top-0 right-0 z-10 m-6 bg-white rounded-full border-2 border-white focus-visible:text-primary-500 focus-visible:outline-none"
                   @click="close"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24">
@@ -73,9 +73,7 @@
                   />
                 </header>
 
-                <article
-                  class="prose dark:prose-light w-full mx-auto my-8 px-8"
-                >
+                <article class="prose w-full mx-auto my-8 px-8">
                   <DialogTitle as="template">
                     <h2>
                       <small
@@ -145,7 +143,7 @@
                       custom
                     >
                       <a
-                        class="flex-1 bg-neutral-100 dark:bg-neutral-800 flex items-center gap-4 rounded p-2 hover:bg-neutral-200 focus-visible:bg-neutral-200 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700"
+                        class="flex-1 bg-neutral-100 flex items-center gap-4 rounded p-2 hover:bg-neutral-200 focus-visible:bg-neutral-200"
                         :href="href"
                         @click.prevent="
                           () => (i === 0 ? goToPrevItem() : goToNextItem())
@@ -196,10 +194,7 @@
                         </svg>
                       </a>
                     </router-link>
-                    <span
-                      v-else
-                      class="flex-1 bg-neutral-100 dark:bg-neutral-800 rounded"
-                    />
+                    <span v-else class="flex-1 bg-neutral-100 rounded" />
                   </template>
                 </nav>
 

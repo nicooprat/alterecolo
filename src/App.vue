@@ -34,7 +34,7 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body {
-    @apply bg-neutral-800 text-neutral-100;
+    @apply bg-neutral-800;
   }
 }
 

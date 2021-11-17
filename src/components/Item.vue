@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xs:flex flex-col bg-white dark:bg-neutral-900 shadow-md relative xs:rounded-xl -mx-4 xs:-mx-0 hover:shadow-lg"
+    class="xs:flex flex-col bg-white shadow-md relative xs:rounded-xl -mx-4 xs:-mx-0 hover:shadow-lg"
   >
     <span
       class="relative rounded-md xs:rounded-t-xl xs:rounded-b-none overflow-hidden float-right xs:float-none w-16 h-16 m-4 xs:m-0 xs:w-full xs:h-auto xs:pb-[56.25%]"
@@ -14,10 +14,7 @@
         :width="item.cover.thumbnails.large.width"
         :height="item.cover.thumbnails.large.height"
       />
-      <span
-        v-else
-        class="absolute inset-0 bg-neutral-200 dark:bg-neutral-700"
-      />
+      <span v-else class="absolute inset-0 bg-neutral-200" />
     </span>
 
     <div class="p-4 flex-grow flex flex-col gap-2">
