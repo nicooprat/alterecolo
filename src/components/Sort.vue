@@ -14,11 +14,11 @@
     </MenuButton>
 
     <MenuItems
-      class="flex flex-col absolute z-10 left-0 min-w-[20ch] w-full p-2 mt-2 bg-white dark:bg-neutral-900 dark:text-neutral-300 space-y-1 rounded-md shadow-lg focus-visible:outline-none"
+      class="flex flex-col absolute z-10 xs:left-0 right-0 xs:right-auto min-w-[20ch] w-full p-2 mt-2 bg-white dark:bg-neutral-900 dark:text-neutral-300 space-y-1 rounded-md shadow-lg focus-visible:outline-none"
     >
       <MenuItem v-for="(label, key) in SORTS" :key="key" v-slot="{ active }">
         <router-link
-          class="cursor-pointer text-left rounded px-2 py-1 whitespace-nowrap"
+          class="cursor-pointer text-left rounded px-2 py-1 whitespace-nowrap font-semibold"
           :class="{
             'bg-primary-500 text-primary-900': active && sort === key,
             'bg-primary-400 text-primary-900': !active && sort === key,

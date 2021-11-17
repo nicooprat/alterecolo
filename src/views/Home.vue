@@ -1,6 +1,6 @@
 <template>
   <header
-    class="w-full px-4 pt-4 pb-8 xs:py-8 lg:py-12 mx-auto flex items-center gap-4 sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800 bg-opacity-90 dark:bg-opacity-90"
+    class="w-full p-4 md:pb-8 xs:py-8 lg:py-12 mx-auto flex items-center gap-4 sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800 bg-opacity-90 dark:bg-opacity-90"
   >
     <span
       class="backdrop-filter backdrop-blur absolute inset-0 -z-1"
