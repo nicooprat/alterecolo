@@ -20,6 +20,7 @@
   from = '/api/*'
   to = '/.netlify/functions/:splat'
   status = 200
+  headers = { X-From = "Netlify" }
 
 [[redirects]]
   from = "*"
