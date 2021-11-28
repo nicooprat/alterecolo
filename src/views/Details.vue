@@ -230,6 +230,7 @@ import {
 } from '@headlessui/vue'
 import { useRoute, onBeforeRouteLeave } from 'vue-router'
 import { onKeyStroke } from '@vueuse/core'
+import { useMeta } from 'vue-meta'
 
 import { getItem, getPrevItem, getNextItem } from '@/composables/data'
 import { toggleId, isChecked } from '@/composables/score'
@@ -349,6 +350,20 @@ export default defineComponent({
       // Trigger closing
       isOpen.value = false
       return prom
+    })
+
+    // Meta title
+
+    const { meta } = useMeta({
+      title: '',
+    })
+
+    watchEffect(() => {
+      // If not loaded yet, or not current page
+      if (!item.value) {
+        return
+      }
+      meta.title = item.value.title
     })
 
     return {

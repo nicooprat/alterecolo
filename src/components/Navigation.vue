@@ -140,7 +140,6 @@ export default defineComponent({
         return allLinks.value.find((cat) => cat.slug === props.category)
       }),
       allLinks,
-      ICONS,
     }
   },
 })

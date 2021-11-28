@@ -1,4 +1,10 @@
 <template>
+  <metainfo>
+    <template #title="{ content }">
+      {{ content ? `${content} - ` : '' }}AlterEcolo
+    </template>
+  </metainfo>
+
   <header
     class="w-full p-4 md:pb-8 xs:py-8 lg:py-12 mx-auto flex items-center gap-4 sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800 bg-opacity-90 dark:bg-opacity-90"
   >
@@ -29,7 +35,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { watchEffect, defineComponent } from 'vue'
+import { useMeta } from 'vue-meta'
 
 import { isLoading, getSearch, getSort, getTotal } from '@/composables/data'
 import Logo from '@/components/Logo.vue'
@@ -62,7 +69,22 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
+    const { meta } = useMeta({
+      title: '',
+    })
+
+    watchEffect(() => {
+      if (!props.categories.length) {
+        return
+      }
+
+      const currentCategory = props.categories.find(
+        (cat) => cat.slug === props.category,
+      )
+      meta.title = currentCategory?.name ?? ''
+    })
+
     return {
       isLoading,
       getSearch,
