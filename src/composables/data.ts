@@ -37,7 +37,7 @@ const state = reactive({
 // Data
 
 export const fetch = async (): Promise<void> => {
-  const { data } = await axios.get('/.netlify/functions/airtable')
+  const { data } = await axios.get('/api/airtable')
   state.categories = data.categories
   state.items = data.items
   state.isLoading = false
