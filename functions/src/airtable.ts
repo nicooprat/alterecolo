@@ -18,12 +18,6 @@ const slugify = (str: string, separator = '-') => {
 }
 
 const handler: Handler = async (event, context) => {
-  if (event.headers['client-ip'] !== '127.0.0.1' && event.headers['X-From'] !== 'Netlify') {
-    return {
-      statusCode: 403
-    }
-  }
-
   const items: Item[] = []
   const categories: Category[] = []
 
