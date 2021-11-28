@@ -3,7 +3,7 @@ import axios from 'axios'
 import Fuse from 'fuse.js'
 
 import router from '@/router'
-import { sync } from '@/composables/sync.js'
+import { sync } from '@/composables/sync'
 
 type Category = {
   name: string
@@ -26,18 +26,12 @@ type Item = {
 
 type Sorts = 'recent' | 'old' | 'easy' | 'difficult'
 
-const state: {
-  isLoading: boolean
-  categories: Category[]
-  items: Item[]
-  search: string
-  sort: Sorts
-} = reactive({
+const state = reactive({
   isLoading: true,
   categories: [],
   items: [],
-  search: sync('search'),
-  sort: sync('sort', 'recent', 'recent'),
+  search: sync('search', '', ''),
+  sort: sync('sort', 'recent' as Sorts, 'recent' as Sorts),
 })
 
 // Data
@@ -67,7 +61,7 @@ export const getItems = computed(() => {
   // Search
 
   if (state.search) {
-    items = fuse.search(state.search).map((match) => match.item)
+    items = fuse.search(state.search as string).map((match) => match.item)
   }
 
   // Category
@@ -84,7 +78,8 @@ export const getItems = computed(() => {
 
   // Sort
 
-  const sorts = {
+
+  const sorts: Record<Sorts, Function> = {
     recent: (a: Item, b: Item) =>
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? 1 : -1,
     old: (a: Item, b: Item) =>
@@ -93,6 +88,7 @@ export const getItems = computed(() => {
     difficult: (a: Item, b: Item) => (a.difficulty > b.difficulty ? -1 : 1),
   }
 
+  // @ts-ignore
   items = items.slice().sort(sorts[state.sort])
 
   return items
@@ -135,6 +131,7 @@ export const getSearch = computed({
 // Sort
 
 export const getSort = computed({
+  // @ts-ignore
   get() {
     return state.sort
   },

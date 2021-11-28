@@ -1,18 +1,17 @@
 import { ref, watch } from 'vue'
-import type { LocationQueryValueRaw } from 'vue-router'
 
 import router from '@/router'
 
 export const sync = (
   key: string,
-  value: LocationQueryValueRaw | LocationQueryValueRaw[],
-  defaultValue: LocationQueryValueRaw | LocationQueryValueRaw[],
+  value: string,
+  defaultValue: string,
 ) => {
   const val = ref(value)
 
   // Sync route -> value
   router.afterEach((to) => {
-    val.value = to.query[key] || defaultValue
+    val.value = to.query[key]?.toString() || defaultValue
   })
 
   // Sync value -> route
