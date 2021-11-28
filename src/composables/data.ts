@@ -28,8 +28,8 @@ type Sorts = 'recent' | 'old' | 'easy' | 'difficult'
 
 const state = reactive({
   isLoading: true,
-  categories: [],
-  items: [],
+  categories: [] as Category[],
+  items: [] as Item[],
   search: sync('search', '', ''),
   sort: sync('sort', 'recent' as Sorts, 'recent' as Sorts),
 })

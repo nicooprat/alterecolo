@@ -8,16 +8,21 @@ import { ref, watchEffect } from 'vue'
  * @param {function} options.getter - Transform value after retrieving from storage
  * @param {function} options.setter - Transform value before setting in storage
  */
-export const persist = ({
+export const persist = <T>({
   key,
   value,
-  getter = (a) => a,
-  setter = (a) => a,
+  getter = (a: T) => a,
+  setter = (a: T) => a,
+}: {
+  key: string,
+  value: T,
+  getter: Function,
+  setter: Function,
 }) => {
   const persisted = ref(value)
 
   try {
-    const previous = JSON.parse(localStorage.getItem(key))
+    const previous = JSON.parse(localStorage.getItem(key) || '{}')
     if (previous) {
       persisted.value = getter(previous)
     }
