@@ -5,13 +5,13 @@ import Fuse from 'fuse.js'
 import router from '@/router'
 import { sync } from '@/composables/sync'
 
-type Category = {
+export type Category = {
   name: string
   slug: string
   count: number
 }
 
-type Item = {
+export type Item = {
   title: string
   replaced: string
   desc: string

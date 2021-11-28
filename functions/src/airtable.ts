@@ -1,12 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Airtable = require('airtable')
+import type { Handler  } from "@netlify/functions";
+import Airtable from 'airtable'
+import type { Item, Category } from '../../src/composables/data'
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE_ID,
+  process.env.AIRTABLE_BASE_ID as string,
 )
 
-const slugify = (string, separator = '-') => {
-  return string
+const slugify = (str: string, separator = '-') => {
+  return str
     .toString()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
@@ -16,9 +17,9 @@ const slugify = (string, separator = '-') => {
     .replace(/\s+/g, separator)
 }
 
-const handler = async (event, context, callback) => {
-  const items = []
-  const categories = []
+const handler: Handler = async (event, context) => {
+  const items: Item[] = []
+  const categories: Category[] = []
 
   try {
     await base('Alternatives')
@@ -29,7 +30,7 @@ const handler = async (event, context, callback) => {
         // Load items in component
         items.push(
           ...data.map((item) => {
-            const newItem = {
+            const newItem: Item = {
               title: item.fields['Alternative'],
               replaced: item.fields['Remplacé'],
               desc: item.fields['Description'],
@@ -43,13 +44,13 @@ const handler = async (event, context, callback) => {
             }
 
             // Push item categories
-            item.fields['Catégorie'].forEach((category) => {
+            item.fields['Catégorie'].forEach((category: Category['name']) => {
               const slug = slugify(category)
-              const existingCategory = categories.filter(
+              const existingCategory = categories.find(
                 (c) => c.slug === slug,
-              )[0]
+              )
               // Push normalized categories in newItem
-              const cat = {
+              const cat: Category = {
                 name: category,
                 count: 1,
                 slug,
@@ -70,7 +71,7 @@ const handler = async (event, context, callback) => {
         fetchNextPage()
       })
 
-    return callback(null, {
+    return {
       body: JSON.stringify({
         items,
         categories,
@@ -81,7 +82,7 @@ const handler = async (event, context, callback) => {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
-    })
+    }
   } catch (error) {
     return { statusCode: 500, body: error.toString() }
   }
