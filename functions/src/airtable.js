@@ -4,8 +4,6 @@ const Airtable = require('airtable')
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE_ID,
 )
-const items = []
-const categories = []
 
 const slugify = (string, separator = '-') => {
   return string
@@ -19,6 +17,9 @@ const slugify = (string, separator = '-') => {
 }
 
 const handler = async (event, context, callback) => {
+  const items = []
+  const categories = []
+
   try {
     await base('Alternatives')
       .select({
