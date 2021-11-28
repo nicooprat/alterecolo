@@ -3,7 +3,7 @@ import axios from 'axios'
 import Fuse from 'fuse.js'
 
 import router from '@/router'
-import { sync } from '@/composables/sync'
+import { sync } from '@/composables/sync.js'
 
 type Category = {
   name: string
@@ -122,6 +122,7 @@ const fuse = new Fuse([], {
   threshold: 0.3,
 })
 
+// @ts-ignore
 watchEffect(() => fuse.setCollection(state.items))
 
 export const getSearch = computed({

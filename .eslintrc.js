@@ -26,10 +26,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/*.vue'],
-      rules: {
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-      },
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
   ],
   ignorePatterns: ['dist'],
