@@ -12,6 +12,9 @@
   autoLaunch = false
   framework = "#custom"
 
+[functions]
+  directory = "functions/src"
+
 [[redirects]]
   force = true
   from = '/api/*'
