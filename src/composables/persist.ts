@@ -11,13 +11,13 @@ import { ref, watchEffect } from 'vue'
 export const persist = <T>({
   key,
   value,
-  getter = (a: T) => a,
-  setter = (a: T) => a,
+  getter = (a) => a,
+  setter = (a) => a,
 }: {
-  key: string,
-  value: T,
-  getter: Function,
-  setter: Function,
+  key: string
+  value: T
+  getter: (a: T) => T
+  setter: (a: T) => T
 }) => {
   const persisted = ref(value)
 
@@ -35,7 +35,6 @@ export const persist = <T>({
     try {
       localStorage.setItem(key, JSON.stringify(setter(persisted.value)))
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(e)
     }
   })

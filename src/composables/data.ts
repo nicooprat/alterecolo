@@ -78,14 +78,13 @@ export const getItems = computed(() => {
 
   // Sort
 
-
-  const sorts: Record<Sorts, Function> = {
-    recent: (a: Item, b: Item) =>
+  const sorts: Record<Sorts, (a: Item, b: Item) => number> = {
+    recent: (a, b) =>
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? 1 : -1,
-    old: (a: Item, b: Item) =>
+    old: (a, b) =>
       Date.parse(a.createdTime) < Date.parse(b.createdTime) ? -1 : 1,
-    easy: (a: Item, b: Item) => (a.difficulty > b.difficulty ? 1 : -1),
-    difficult: (a: Item, b: Item) => (a.difficulty > b.difficulty ? -1 : 1),
+    easy: (a, b) => (a.difficulty > b.difficulty ? 1 : -1),
+    difficult: (a, b) => (a.difficulty > b.difficulty ? -1 : 1),
   }
 
   // @ts-ignore
