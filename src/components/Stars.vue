@@ -1,5 +1,5 @@
 <template>
-  <span v-if="difficulty" class="flex gap-1">
+  <span v-if="difficulty" ref="wrapper" class="flex gap-1">
     <svg
       v-for="n in 3"
       :key="n"
@@ -11,7 +11,7 @@
             }
           : {
               'text-primary-100': difficulty < n,
-              'text-primary-400': difficulty >= n,
+              'text-primary-400 star': difficulty >= n,
             }
       "
       width="16"
@@ -27,7 +27,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
+import { animate } from 'motion'
 
 export default defineComponent({
   props: {
@@ -39,6 +40,54 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+  },
+  setup(props) {
+    const wrapper = ref<HTMLElement>()
+
+    watch(
+      () => props.checked,
+      (checked) => {
+        if (checked) {
+          const stars = wrapper.value?.querySelectorAll('.star')
+          const scoreCoords = document
+            .querySelector('#score')
+            ?.getBoundingClientRect()
+
+          stars?.forEach(async (star, i) => {
+            const newStar = star.cloneNode(true) as HTMLElement
+            const coords = star.getBoundingClientRect()
+
+            newStar.classList.add('fixed')
+            newStar.style.left = `${coords.left}px`
+            newStar.style.top = `${coords.top}px`
+            newStar.style.zIndex = '999'
+            wrapper.value?.appendChild(newStar)
+
+            await animate(
+              newStar,
+              {
+                top: `${scoreCoords?.top}px`,
+                left: `${scoreCoords?.left}px`,
+                transform: ['scale(1)', 'scale(5)', 'scale(1.5)'],
+                opacity: [1, 1, 0],
+              },
+              {
+                duration: 0.5,
+                delay: 0.1 * i,
+                transform: { offset: [0, 0.2, 1] },
+                opacity: { offset: [0, 0.98, 1] },
+                easing: [0.57, 0.01, 0.64, 0.63],
+              },
+            ).finished
+            newStar.remove()
+          })
+        }
+      },
+    )
+
+    return {
+      wrapper,
+    }
   },
 })
 </script>
