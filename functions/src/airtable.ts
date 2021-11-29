@@ -1,4 +1,4 @@
-import type { Handler  } from "@netlify/functions";
+import type { Handler } from '@netlify/functions'
 import Airtable from 'airtable'
 import type { Item, Category } from '../../src/composables/data'
 
@@ -17,7 +17,7 @@ const slugify = (str: string, separator = '-') => {
     .replace(/\s+/g, separator)
 }
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async () => {
   const items: Item[] = []
   const categories: Category[] = []
 
@@ -46,9 +46,7 @@ const handler: Handler = async (event, context) => {
             // Push item categories
             item.fields['Catégorie'].forEach((category: Category['name']) => {
               const slug = slugify(category)
-              const existingCategory = categories.find(
-                (c) => c.slug === slug,
-              )
+              const existingCategory = categories.find((c) => c.slug === slug)
               // Push normalized categories in newItem
               const cat: Category = {
                 name: category,

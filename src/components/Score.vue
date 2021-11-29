@@ -3,7 +3,13 @@
     <PopoverButton
       class="flex-shrink-0 flex items-center py-3 px-4 rounded-md bg-primary-400 text-white dark:text-primary-900 dark:ring-offset-primary-900 space-x-2 leading-none overflow-hidden ring-primary-400 ring-offset-neutral-100 ring-offset-2 focus-visible:ring focus-visible:outline-none hover:bg-primary-500"
     >
-      <svg class="flex-shrink-0" width="16" height="16" viewBox="0 0 24 24">
+      <svg
+        id="score"
+        class="flex-shrink-0"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+      >
         <path
           fill="currentColor"
           d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"

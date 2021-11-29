@@ -23,11 +23,7 @@ module.exports = {
     'vue/script-setup-uses-vars': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
-  overrides: [
-    {
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-    },
-  ],
   ignorePatterns: ['dist'],
 }

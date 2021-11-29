@@ -2,11 +2,7 @@ import { ref, watch } from 'vue'
 
 import router from '@/router'
 
-export const sync = (
-  key: string,
-  value: string,
-  defaultValue: string,
-) => {
+export const sync = (key: string, value: string, defaultValue: string) => {
   const val = ref(value)
 
   // Sync route -> value
