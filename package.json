@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vuedx-typecheck . && vite build",
+    "build": "vite build",
+    "tsc": "vuedx-typecheck .",
     "serve": "vite preview",
     "lint": "eslint '*/**/*.{js,ts,tsx,vue}' --quiet --fix",
     "start": "node_modules/netlify-cli/bin/run dev"
